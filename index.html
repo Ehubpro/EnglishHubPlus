@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electro Mind - Electrical Engineering Learning - 1.1.8 </title>
+    
+    <!-- Font chữ Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome cho Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #a855f7;
+            --bg-color: #f3f4f6;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --white: #ffffff;
+            --card-bg: #ffffff;
+            --input-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b; 
+            --error: #ef4444;
+            --gradient-main: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --gradient-hero: linear-gradient(100deg, #7c3aed 0%, #3b82f6 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --header-bg: #ffffff;
+            --sidebar-bg: #ffffff;
+            --menu-hover: #eff6ff;
+        }
+
+        /* DARK MODE VARIABLES */
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --text-dark: #f9fafb;
+            --text-light: #9ca3af;
+            --white: #1f2937; 
+            --card-bg: #1f2937;
+            --input-bg: #374151;
+            --border-color: #374151;
+            --header-bg: #1f2937;
+            --sidebar-bg: #1f2937;
+            --menu-hover: #374151;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-dark); line-height: 1.5; }
+        
+        /* --- UTILITIES --- */
+        .hidden { display: none !important; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn {
+            display: inline-block; padding: 10px 20px; border-radius: 8px; border: none;
+            font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center;
+        }
+        .btn-primary { background: var(--gradient-main); color: #ffffff; box-shadow: var(--shadow-md); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); }
+        .btn-success { background-color: var(--success); color: white; }
+        .btn-danger { background-color: var(--error); color: white; padding: 5px 10px; font-size: 0.85rem; }
+        .btn-warning { background-color: var(--warning); color: white; padding: 5px 10px; font-size: 0.85rem; }
+        .btn-sm { padding: 5px 10px; font-size: 0.85rem; }
+        .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; color: white; }
+        .badge-pending { background-color: var(--warning); }
+        .badge-graded { background-color: var(--success); }
+        
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: 500; color: var(--text-dark); }
+        .input-field {
+            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;
+            font-size: 1rem; transition: border-color 0.2s; background-color: var(--input-bg); color: var(--text-dark);
+        }
+        .input-field:focus { outline: none; border-color: var(--primary-color); ring: 2px solid var(--primary-color); }
+        textarea.input-field { resize: vertical; min-height: 100px; }
+        
+        /* RICH TEXT EDITOR STYLES */
+        .rich-editor {
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .rich-editor img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+        [data-theme="dark"] .rich-editor img { opacity: 0.9; }
+
+        /* Dark mode specific for select inputs */
+        [data-theme="dark"] select.input-field { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f9fafb%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); }
+
+        /* --- AUTH SCREEN --- */
+        #auth-screen {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 40px;
+            border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        [data-theme="dark"] .auth-card { background: rgba(31, 41, 55, 0.95); }
+        
+        .logo-text { font-size: 2rem; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        .role-switch { display: flex; background: var(--border-color); border-radius: 8px; padding: 4px; margin-bottom: 20px; }
+        .role-btn { flex: 1; padding: 8px; border-radius: 6px; border: none; background: transparent; font-weight: 600; cursor: pointer; color: var(--text-light); }
+        .role-btn.active { background: var(--card-bg); color: var(--primary-color); box-shadow: var(--shadow-sm); }
+
+        /* --- DASHBOARD LAYOUT --- */
+        header { background: var(--header-bg); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .nav-logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; gap: 10px; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .user-badge { background: #e0e7ff; color: var(--primary-color); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+
+        .main-grid { display: grid; grid-template-columns: 250px 1fr; gap: 30px; padding-top: 30px; padding-bottom: 50px; }
+        
+        /* Sidebar */
+        .sidebar { background: var(--sidebar-bg); border-radius: var(--radius); padding: 20px; height: fit-content; box-shadow: var(--shadow-sm); }
+        .menu-item {
+            display: flex; align-items: center; gap: 10px; padding: 12px 15px;
+            color: var(--text-light); cursor: pointer; border-radius: 8px; margin-bottom: 5px; transition: all 0.2s;
+        }
+        .menu-item:hover, .menu-item.active { background: var(--menu-hover); color: var(--primary-color); }
+        .menu-item i { width: 20px; text-align: center; }
+
+        /* Content Area */
+        .content-area { min-height: 500px; }
+        .card { background: var(--card-bg); border-radius: var(--radius); padding: 25px; box-shadow: var(--shadow-sm); margin-bottom: 20px; }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--text-dark); border-left: 5px solid var(--secondary-color); padding-left: 15px; }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            background: var(--gradient-hero);
+            border-radius: 20px;
+            padding: 30px 40px;
+            position: relative;
+            overflow: hidden;
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.3);
+        }
+        .hero-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.1); z-index: 0; }
+        .hero-circle-1 { width: 300px; height: 300px; top: -50px; left: -50px; }
+        .hero-circle-2 { width: 200px; height: 200px; bottom: -50px; right: 20%; }
+        .hero-left { flex: 1; z-index: 2; padding-right: 20px; position: relative; }
+        .hero-character-img { position: absolute; left: -20px; bottom: -40px; height: 360px; z-index: 1; pointer-events: none; }
+        .hero-right { flex: 1.2; z-index: 2; display: flex; gap: 20px; justify-content: flex-end; flex-wrap: wrap; }
+        .hero-card {
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 16px;
+            padding: 20px; width: 220px; display: flex; flex-direction: column; align-items: center;
+            text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        [data-theme="dark"] .hero-card { background: rgba(31, 41, 55, 0.9); }
+        [data-theme="dark"] .hero-card h3 { color: #fff; }
+
+        .hero-card:hover { transform: translateY(-8px) scale(1.02); }
+        .hero-card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; }
+        .hero-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; color: var(--text-dark); }
+        .hero-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .hero-btn { background: #2563eb; color: white; border: none; padding: 8px 20px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .hero-btn:hover { background: #1d4ed8; }
+        .hero-btn-cyan { background: #06b6d4; }
+        .hero-btn-cyan:hover { background: #0891b2; }
+
+        /* --- LESSON GRID --- */
+        .lesson-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .lesson-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.2s; border: 1px solid var(--border-color); display: flex; flex-direction: column; position: relative; }
+        .lesson-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--primary-color); }
+        .lesson-img { height: 180px; background-size: cover; background-position: center; background-color: #ddd; display: flex; align-items: center; justify-content: center; position: relative;}
+        .lesson-img.no-image { background: var(--gradient-main); }
+        .lesson-img.no-image i { font-size: 3rem; color: white; }
+        .lesson-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .lesson-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark); }
+        .lesson-desc { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;}
+        .teacher-controls { display: flex; gap: 10px; margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 10px; }
+        .teacher-controls button { flex: 1; }
+        .completion-tick { position: absolute; top: 10px; right: 10px; background: var(--success); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+        /* --- WRITING ASSIGNMENT STYLES --- */
+        .writing-item { border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 15px; transition: all 0.2s; background: var(--card-bg); }
+        .writing-item:hover { box-shadow: var(--shadow-sm); border-color: var(--primary-color); }
+        .writing-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .writing-title { font-weight: 700; font-size: 1.1rem; color: var(--text-dark); }
+        .writing-meta { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .submission-box { background: var(--bg-color); border-radius: 8px; padding: 15px; border: 1px dashed var(--border-color); margin-top: 15px; }
+        .grade-feedback { background: #ecfdf5; border: 1px solid #a7f3d0; padding: 15px; border-radius: 8px; margin-top: 15px; color: #064e3b; }
+        [data-theme="dark"] .grade-feedback { background: #064e3b; border-color: #059669; color: #a7f3d0; }
+        .score-display { font-weight: bold; color: var(--success); font-size: 1.2rem; }
+
+        /* Assignment List Card */
+        .assignment-card {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            background: var(--card-bg); padding: 20px; margin-bottom: 15px;
+            border: 1px solid var(--border-color); border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .assignment-card:hover { transform: translateX(5px); border-color: var(--primary-color); }
+        .assign-info { flex: 1; margin-right: 15px; }
+        .assign-info h4 { color: var(--text-dark); margin-bottom: 5px; font-weight: 700; }
+        .assign-info p { color: var(--text-light); font-size: 0.9rem; margin: 0; }
+        .assign-actions { display: flex; flex-direction: column; gap: 5px; }
+        .assign-btns { display: flex; gap: 5px; }
+
+        /* Quiz Bank Item */
+        .quiz-bank-item { border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 15px; background: var(--card-bg); display: flex; justify-content: space-between; align-items: flex-start; transition: border-color 0.2s;}
+        .quiz-bank-item:hover { border-color: var(--primary-color); }
+        .quiz-bank-content { flex: 1; margin-right: 20px; }
+        .quiz-bank-question { font-weight: 600; margin-bottom: 8px; color: var(--text-dark); }
+        .quiz-bank-option { font-size: 0.9rem; color: var(--text-light); margin-bottom: 2px; }
+        .quiz-bank-correct { color: var(--success); font-weight: 600; }
+        .quiz-bank-controls { display: flex; gap: 8px; }
+
+        /* Dynamic Lesson Quiz Input */
+        .lesson-quiz-row { background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative; }
+        .lesson-quiz-row .remove-btn { position: absolute; top: 10px; right: 10px; background: var(--error); color: white; border: none; border-radius: 4px; width: 24px; height: 24px; cursor: pointer; }
+
+        /* Vocabulary Table Styles */
+        .vocab-table { width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid var(--border-color); }
+        .vocab-table th, .vocab-table td { padding: 10px; border: 1px solid var(--border-color); text-align: left; }
+        .vocab-table th { background: var(--bg-color); font-weight: 600; color: var(--text-dark); }
+        .vocab-row-input { display: grid; grid-template-columns: 1fr 1fr 1fr 40px; gap: 10px; margin-bottom: 10px; align-items: center;}
+        
+        /* Loading & Toast */
+        #loading-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.8); display: flex; justify-content: center; align-items: center; z-index: 999; }
+        [data-theme="dark"] #loading-overlay { background: rgba(17, 24, 39, 0.8); }
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
+        [data-theme="dark"] .spinner { border-color: #374151; border-top-color: var(--primary-color); }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .toast {
+            position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; background: var(--text-dark);
+            color: var(--bg-color); border-radius: 8px; box-shadow: var(--shadow-md); opacity: 0; transition: opacity 0.3s; z-index: 1000;
+        }
+        .toast.show { opacity: 1; }
+        
+        /* Quiz & Leaderboard */
+        .quiz-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .question-box { font-size: 1.2rem; font-weight: 600; margin: 30px 0; color: var(--text-dark); }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .option-btn {
+            padding: 20px; border: 2px solid var(--border-color); border-radius: 10px; background: var(--card-bg);
+            font-size: 1rem; cursor: pointer; transition: all 0.2s; color: var(--text-dark);
+        }
+        .option-btn:hover:not(.disabled) { background: var(--menu-hover); border-color: var(--primary-color); }
+        .option-btn.correct { background: #d1fae5 !important; border-color: var(--success) !important; color: #065f46; }
+        [data-theme="dark"] .option-btn.correct { background: #064e3b !important; color: #a7f3d0; border-color: #059669 !important; }
+        .option-btn.wrong { background: #fee2e2 !important; border-color: var(--error) !important; color: #991b1b; }
+        [data-theme="dark"] .option-btn.wrong { background: #7f1d1d !important; color: #fca5a5; border-color: #b91c1c !important; }
+        
+        /* Mini Lesson Quiz */
+        .mini-quiz-box { margin-top: 30px; padding: 20px; border: 2px solid #e0e7ff; border-radius: 12px; background: #f5f7ff; }
+        [data-theme="dark"] .mini-quiz-box { background: #1e293b; border-color: #374151; }
+        .mini-quiz-item { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed var(--border-color); }
+        .mini-quiz-item:last-child { border-bottom: none; }
+
+        .leaderboard-table { width: 100%; border-collapse: collapse; }
+        .leaderboard-table th { text-align: left; padding: 15px; background: var(--bg-color); color: var(--text-light); font-size: 0.85rem; text-transform: uppercase; }
+        .leaderboard-table td { padding: 15px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); }
+        .rank-1 { color: #fbbf24; font-weight: bold; }
+        .rank-2 { color: #9ca3af; font-weight: bold; }
+        .rank-3 { color: #b45309; font-weight: bold; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; padding-top: 20px; }
+            .sidebar { margin-bottom: 20px; }
+            .vocab-row-input { grid-template-columns: 1fr; border-bottom: 1px dashed #ccc; padding-bottom: 10px;}
+            .hero-section { flex-direction: column; padding: 20px; min-height: auto; }
+            .hero-left { width: 100%; margin-bottom: 20px; }
+            .hero-character-img { display: none; } /* Hide 3D char on mobile */
+            .hero-right { justify-content: center; width: 100%; }
+            .hero-card { width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADING SPINNER -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">Thông báo</div>
+
+    <!-- === 1. AUTHENTICATION SCREEN === -->
+    <section id="auth-screen">
+        <div class="auth-card">
+            <h1 class="logo-text">Electro Mind</h1>
+            <p style="margin-bottom: 20px; color: var(--text-light);">HUST Electrical Engineering</p>
+            
+            <div class="role-switch">
+                <button class="role-btn active" onclick="switchAuthRole('student')">Sinh viên</button>
+                <button class="role-btn" onclick="switchAuthRole('teacher')">Giáo viên</button>
+            </div>
+
+            <form id="auth-form">
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="email" class="input-field" placeholder="mssv@sis.hust.edu.vn" required>
+                </div>
+                <div class="input-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="password" class="input-field" placeholder="******" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Đăng nhập</button>
+                <button type="button" id="btn-signup" class="btn btn-outline" style="width: 100%;">Đăng ký tài khoản mới</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- === 2. MAIN APP DASHBOARD === -->
+    <section id="app-dashboard" class="hidden">
+        <header>
+            <div class="container navbar">
+                <div class="nav-logo">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Electro Mind</span>
+                </div>
+                <div class="user-info">
+                    <button onclick="toggleTheme()" class="btn btn-outline" style="padding: 5px 10px; border: 1px solid var(--border-color);" title="Giao diện Sáng/Tối">
+                        <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    </button>
+                    <span class="user-badge" id="user-badge">Student</span>
+                    <span id="user-email" style="font-weight: 600; display: none; md:block;">user@email.com</span>
+                    <button onclick="handleLogout()" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.9rem;"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container main-grid">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div id="student-menu" class="hidden">
+                    <div class="menu-item active" onclick="navigate('student-lessons')">
+                        <i class="fa-solid fa-book-open"></i> Trang chủ
+                    </div>
+                    <div class="menu-item" onclick="navigate('student-quiz')">
+                        <i class="fa-solid fa-gamepad"></i> Luyện tập (Quiz)
+                    </div>
+                    <div class="menu-item" onclick="navigate('student-writing')">
+                        <i class="fa-solid fa-pen-nib"></i> Bài tập Viết
+                    </div>
+                    <div class="menu-item" onclick="navigate('leaderboard')">
+                        <i class="fa-solid fa-trophy"></i> Bảng xếp hạng
+                    </div>
+                </div>
+
+                <div id="teacher-menu" class="hidden">
+                    <div class="menu-item active" onclick="navigate('teacher-create-lesson')">
+                        <i class="fa-solid fa-pen-to-square"></i> Đăng bài học
+                    </div>
+                    <div class="menu-item" onclick="navigate('teacher-create-quiz')">
+                        <i class="fa-solid fa-circle-question"></i> Ngân hàng câu hỏi
+                    </div>
+                    <div class="menu-item" onclick="navigate('teacher-writing-manage')">
+                        <i class="fa-solid fa-clipboard-check"></i> Quản lý Writing
+                    </div>
+                    <div class="menu-item" onclick="navigate('student-lessons')">
+                        <i class="fa-solid fa-eye"></i> Quản lý bài đăng
+                    </div>
+                    <div class="menu-item" onclick="navigate('leaderboard')">
+                        <i class="fa-solid fa-trophy"></i> Bảng xếp hạng
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA -->
+            <main class="content-area">
+                
+                <!-- LESSON LIST (SHARED VIEW) -->
+                <div id="view-student-lessons" class="view-section">
+                    <!-- HERO SECTION -->
+                    <div class="hero-section">
+                        <div class="hero-circle hero-circle-1"></div>
+                        <div class="hero-circle hero-circle-2"></div>
+                        <div class="hero-left">
+                             <img src="https://cdn3d.iconscout.com/3d/premium/thumb/student-holding-laptop-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--education-logo-learning-pack-school-illustrations-2982541.png" class="hero-character-img" alt="3D Student">
+                        </div>
+                        <div class="hero-right">
+                            <div class="hero-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3413/3413535.png" alt="Courses">
+                                <h3>Khóa học của tôi</h3>
+                                <p>Tiếp tục học tập</p>
+                                <button class="hero-btn" onclick="scrollToLessons()">Học ngay >></button>
+                            </div>
+                            <div class="hero-card">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" alt="Quiz">
+                                <h3>Thử thách Quiz</h3>
+                                <p>Kiểm tra kiến thức</p>
+                                <button class="hero-btn hero-btn-cyan" onclick="navigate('student-quiz')">Luyện tập >></button>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="section-title" id="lesson-anchor">Danh sách bài học</h2>
+                    <div id="lesson-list" class="lesson-grid"></div>
+                </div>
+
+                <!-- LESSON DETAIL -->
+                <div id="view-lesson-detail" class="view-section hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <button onclick="navigate('student-lessons')" class="btn btn-outline">&larr; Quay lại</button>
+                        <button id="btn-mark-done" class="btn btn-outline" onclick="toggleLessonCompletion()"><i class="fa-regular fa-circle-check"></i> Đánh dấu đã học</button>
+                    </div>
+                    
+                    <div class="card">
+                        <input type="hidden" id="current-lesson-id">
+                        <div id="detail-image" style="width:100%; height:300px; background-size:cover; background-position:center; border-radius:8px; margin-bottom:20px; display:none;"></div>
+                        <h1 id="detail-title" style="color: var(--primary-color); margin-bottom: 10px;">Unit Title</h1>
+                        <div style="border-bottom: 1px solid var(--border-color); margin-bottom: 20px;"></div>
+                        <h3 style="margin-bottom: 10px;"><i class="fa-solid fa-language"></i> Vocabulary</h3>
+                        <div id="detail-vocab-container" style="margin-bottom: 20px;"></div>
+                        <h3 style="margin-bottom: 10px;"><i class="fa-solid fa-file-lines"></i> Content</h3>
+                        <div id="detail-content" class="rich-editor" style="margin-bottom: 20px;"></div>
+                        <div id="detail-video-container"></div>
+                        
+                        <!-- Mini Quiz Section (UPDATED: Dynamic List) -->
+                        <div id="detail-mini-quiz" class="mini-quiz-box hidden">
+                            <h4 style="color: var(--primary-color); margin-bottom:20px;"><i class="fa-solid fa-puzzle-piece"></i> Quiz ôn tập</h4>
+                            <div id="mini-quiz-list-display"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STUDENT: WRITING ASSIGNMENTS -->
+                <div id="view-student-writing" class="view-section hidden">
+                    <h2 class="section-title">Bài tập Viết (Writing)</h2>
+                    <div id="student-writing-list"></div>
+                </div>
+
+                <!-- TEACHER: WRITING MANAGEMENT -->
+                <div id="view-teacher-writing-manage" class="view-section hidden">
+                    <h2 class="section-title">Quản lý Writing</h2>
+                    
+                    <!-- Create Assignment -->
+                    <div class="card">
+                        <h3 id="writing-form-title"><i class="fa-solid fa-plus-circle"></i> Tạo đề bài mới</h3>
+                        <form id="create-writing-form" style="margin-top:15px;">
+                            <div class="input-group">
+                                <label>Tiêu đề bài tập</label>
+                                <input type="text" id="writing-title" class="input-field" placeholder="VD: Essay Unit 1" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Yêu cầu đề bài (Prompt)</label>
+                                <textarea id="writing-desc" class="input-field" rows="3" placeholder="Mô tả yêu cầu..." required></textarea>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button type="submit" id="btn-submit-writing" class="btn btn-primary">Giao bài</button>
+                                <button type="button" id="btn-cancel-writing" class="btn btn-outline hidden" onclick="cancelEditAssignment()">Hủy</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <h3 style="margin: 30px 0 15px; color: var(--warning);"><i class="fa-solid fa-hourglass-half"></i> Overview (Việc cần làm)</h3>
+                    <div id="teacher-pending-list" style="margin-bottom: 30px;"></div>
+
+                    <!-- NEW: ASSIGNMENT LIST -->
+                    <h3 style="margin: 30px 0 15px; color: var(--primary-color);"><i class="fa-solid fa-folder-open"></i> Danh sách đề bài đã ra</h3>
+                    <div id="teacher-assignments-list">
+                        <!-- List of assignments injected here -->
+                    </div>
+                </div>
+
+                <!-- NEW: TEACHER ASSIGNMENT DETAIL VIEW -->
+                <div id="view-teacher-assignment-detail" class="view-section hidden">
+                    <button onclick="navigate('teacher-writing-manage')" class="btn btn-outline" style="margin-bottom: 20px;">&larr; Quay lại danh sách</button>
+                    <h2 id="wad-title" class="section-title">Assignment Title</h2>
+                    <div class="card">
+                        <p id="wad-desc" style="color: var(--text-light); margin-bottom: 20px; font-style: italic; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;"></p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <!-- Pending Column -->
+                            <div>
+                                <h4 style="color: var(--warning); margin-bottom: 15px;"><i class="fa-solid fa-clock"></i> Chờ chấm</h4>
+                                <div id="wad-pending-list"></div>
+                            </div>
+                            
+                            <!-- Graded Column -->
+                            <div>
+                                <h4 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> Đã chấm</h4>
+                                <div id="wad-graded-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TEACHER: GRADING INTERFACE -->
+                <div id="view-teacher-grading-detail" class="view-section hidden">
+                    <button onclick="navigate('teacher-writing-manage')" class="btn btn-outline" style="margin-bottom: 20px;">&larr; Quay lại danh sách</button>
+                    <h2 class="section-title">Chấm bài</h2>
+                    <div class="card">
+                        <div style="background: var(--menu-hover); padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color);">
+                            <h4 id="grade-assignment-title" style="margin-bottom: 5px;">Assignment Title</h4>
+                            <p id="grade-student-email" style="color: var(--text-light); font-style: italic;">Student Email</p>
+                        </div>
+                        
+                        <h4>Bài làm của sinh viên:</h4>
+                        <div id="grade-student-content" style="background: var(--bg-color); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px; white-space: pre-wrap; min-height: 100px;"></div>
+                        
+                        <div id="grade-student-image-container" style="margin-bottom: 20px; display: none;">
+                             <p><strong>Ảnh minh họa:</strong></p>
+                             <img id="grade-student-image" src="" style="max-width: 100%; border-radius: 8px; border: 1px solid #eee;">
+                        </div>
+
+                        <form id="grading-form">
+                            <div class="input-group">
+                                <label>Điểm số (0-100)</label>
+                                <input type="number" id="grade-score" class="input-field" min="0" max="100" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Nhận xét (Feedback)</label>
+                                <textarea id="grade-feedback" class="input-field" rows="3" placeholder="Nhận xét chi tiết..." required></textarea>
+                            </div>
+                            <input type="hidden" id="grade-submission-id">
+                            <button type="submit" class="btn btn-primary">Hoàn tất chấm</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- QUIZ GAME -->
+                <div id="view-student-quiz" class="view-section hidden">
+                    <h2 class="section-title">Mini Game: Thử thách kiến thức</h2>
+                    <div id="quiz-start-screen" class="card text-center" style="text-align: center;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" width="100" style="margin-bottom: 20px;">
+                        <h3>Sẵn sàng chưa?</h3>
+                        <button onclick="startQuiz()" class="btn btn-primary">Bắt đầu ngay</button>
+                    </div>
+                    <div id="quiz-play-screen" class="hidden quiz-container">
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                                <span style="font-weight: bold;">Điểm: <span id="current-score" style="color: var(--primary-color);">0</span></span>
+                                <span>Câu hỏi: <span id="question-counter">1</span>/10</span>
+                            </div>
+                            <div class="progress-bar" style="width: 100%; height: 6px; background: var(--border-color); border-radius: 3px; margin-bottom: 20px;">
+                                <div id="quiz-progress" style="width: 0%; height: 100%; background: var(--success); border-radius: 3px;"></div>
+                            </div>
+                            <div id="question-text" class="question-box"></div>
+                            <div id="answers-area" class="options-grid"></div>
+                            <div id="feedback-msg" style="margin-top: 20px; font-weight: bold; height: 24px;"></div>
+                            <button id="btn-next-question" onclick="nextQuestion()" class="btn btn-primary hidden" style="margin-top: 20px;">Câu tiếp theo &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LEADERBOARD -->
+                <div id="view-leaderboard" class="view-section hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 class="section-title" style="margin-bottom:0">Bảng vàng thành tích</h2>
+                        <button id="btn-reset-leaderboard" class="btn btn-danger hidden" onclick="resetLeaderboard()"><i class="fa-solid fa-rotate-right"></i> Reset điểm Game</button>
+                    </div>
+                    <div class="card">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr><th>Hạng</th><th>Sinh viên</th><th>Tổng điểm</th></tr>
+                            </thead>
+                            <tbody id="leaderboard-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TEACHER: CREATE/EDIT LESSON (UPDATED: Multi Quiz) -->
+                <div id="view-teacher-create-lesson" class="view-section hidden">
+                    <h2 class="section-title" id="form-title">Soạn bài giảng mới</h2>
+                    <div class="card">
+                        <form id="create-lesson-form">
+                            <div class="input-group">
+                                <label>Tiêu đề bài học (Unit Name)</label>
+                                <input type="text" id="lesson-title" class="input-field" placeholder="VD: Unit 1: Electrons" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Mô tả ngắn</label>
+                                <input type="text" id="lesson-desc" class="input-field" placeholder="Giới thiệu ngắn gọn..." required>
+                            </div>
+                            <div class="input-group">
+                                <label>Hình ảnh minh họa (URL)</label>
+                                <input type="url" id="lesson-image" class="input-field" placeholder="https://example.com/image.jpg">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label>Nội dung chi tiết (Essay/Theory)</label>
+                                <div style="border: 1px solid var(--border-color); border-radius: 8px; background: var(--input-bg);">
+                                    <div id="lesson-content-editor" class="input-field rich-editor" contenteditable="true" style="border:none; min-height: 200px;"></div>
+                                </div>
+                                <small style="color: var(--text-light); font-style: italic;">Mẹo: Bạn có thể dán hình ảnh (Ctrl+V) trực tiếp vào khung soạn thảo trên.</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label>Từ vựng (Vocabulary)</label>
+                                <div style="background: var(--menu-hover); padding: 15px; border: 1px solid var(--border-color); border-radius: 8px;">
+                                    <div id="vocab-input-container"></div>
+                                    <button type="button" class="btn btn-outline btn-sm" onclick="addVocabRow()">
+                                        <i class="fa-solid fa-plus"></i> Thêm từ vựng
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Link Video (Youtube)</label>
+                                <input type="text" id="lesson-video" class="input-field" placeholder="https://www.youtube.com/watch?v=...">
+                                <small style="color: var(--text-light);">Hệ thống sẽ tự động chuyển đổi link video.</small>
+                            </div>
+
+                            <!-- UPDATED: MULTI MINI QUIZ -->
+                            <div class="input-group" style="margin-top: 20px; padding-top: 20px; border-top: 2px dashed var(--border-color);">
+                                <label style="color: var(--primary-color);"><i class="fa-solid fa-puzzle-piece"></i> Mini Quiz (Cuối bài học)</label>
+                                <div id="lesson-quiz-container" style="margin-bottom: 15px;">
+                                    <!-- Dynamic quiz rows go here -->
+                                </div>
+                                <button type="button" class="btn btn-outline btn-sm" onclick="addLessonQuizRow()">
+                                    <i class="fa-solid fa-plus"></i> Thêm câu hỏi
+                                </button>
+                                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 5px;">Lưu ý: Các câu hỏi này sẽ được <strong>tự động import</strong> vào Ngân hàng câu hỏi chung.</p>
+                            </div>
+
+                            <div style="margin-top: 20px;">
+                                <button type="submit" id="form-submit-btn" class="btn btn-primary">Đăng bài</button>
+                                <button type="button" id="btn-cancel-edit" class="btn btn-outline hidden" onclick="cancelEdit()">Hủy chỉnh sửa</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TEACHER: MANAGE QUIZ -->
+                <div id="view-teacher-create-quiz" class="view-section hidden">
+                    <h2 class="section-title">Ngân hàng câu hỏi</h2>
+                    <div class="card">
+                        <h3 id="quiz-form-title"><i class="fa-solid fa-plus-circle"></i> Thêm câu hỏi mới</h3>
+                        <form id="create-quiz-form" style="margin-top: 15px;">
+                            <div class="input-group">
+                                <label>Câu hỏi</label>
+                                <input type="text" id="quiz-question" class="input-field" required>
+                            </div>
+                            <div class="options-grid" style="margin-bottom: 15px;">
+                                <div class="input-group"><label>Đáp án A</label><input type="text" id="opt-a" class="input-field" required></div>
+                                <div class="input-group"><label>Đáp án B</label><input type="text" id="opt-b" class="input-field" required></div>
+                                <div class="input-group"><label>Đáp án C</label><input type="text" id="opt-c" class="input-field" required></div>
+                                <div class="input-group"><label>Đáp án D</label><input type="text" id="opt-d" class="input-field" required></div>
+                            </div>
+                            <div class="input-group">
+                                <label>Đáp án đúng</label>
+                                <select id="correct-opt" class="input-field">
+                                    <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+                                </select>
+                            </div>
+                            <button type="submit" id="btn-submit-quiz" class="btn btn-primary">Lưu câu hỏi</button>
+                            <button type="button" id="btn-cancel-quiz" class="btn btn-outline hidden" onclick="resetQuizForm()">Hủy</button>
+                        </form>
+                    </div>
+                    <h3 style="margin: 30px 0 15px;">Danh sách câu hỏi hiện có</h3>
+                    <div id="quiz-bank-list"></div>
+                </div>
+
+            </main>
+        </div>
+    </section>
+
+    <!-- SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDoc, getDocs, doc, setDoc, query, orderBy, limit, updateDoc, deleteDoc, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPAQ8jldVTwtB_uAzz0-oGcZiUaJ3NeyU",
+            authDomain: "ewmp-abc18.firebaseapp.com",
+            projectId: "ewmp-abc18",
+            storageBucket: "ewmp-abc18.firebasestorage.app",
+            messagingSenderId: "416084778745",
+            appId: "1:416084778745:web:edb8de27952c3007e24c28",
+            measurementId: "G-GVP2MCQNLJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const PUBLIC_DATA_PATH = `artifacts/${appId}/public/data`;
+        function getUserProfilePath(userId) { return `artifacts/${appId}/users/${userId}/profile`; }
+        function getUserProgressPath(userId) { return `artifacts/${appId}/users/${userId}/progress`; }
+
+        let currentUser = null;
+        let currentRole = 'student';
+        let selectedRoleAuth = 'student';
+        let editingLessonId = null;
+        let isEditingMode = false;
+        let editingQuizId = null;
+        let editingAssignmentId = null;
+
+        const get = (id) => document.getElementById(id);
+        const show = (id) => get(id).classList.remove('hidden');
+        const hide = (id) => get(id).classList.add('hidden');
+        const toggleLoading = (isLoading) => get('loading-overlay').style.display = isLoading ? 'flex' : 'none';
+        const showToast = (msg) => {
+            const t = get('toast'); t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+        
+        // --- THEME ---
+        const htmlEl = document.documentElement;
+        window.toggleTheme = () => {
+            const current = htmlEl.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', next);
+            localStorage.setItem('electro_theme', next);
+            updateThemeIcon(next);
+        }
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('theme-icon');
+            if(theme === 'dark') { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            else { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
+        }
+        const savedTheme = localStorage.getItem('electro_theme') || 'light';
+        htmlEl.setAttribute('data-theme', savedTheme);
+
+        // --- AUTH & INIT ---
+        const initAuth = async () => {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                try { await signInWithCustomToken(auth, __initial_auth_token); } catch (e) { await signInAnonymously(auth); }
+            }
+        };
+        initAuth();
+
+        window.addEventListener('DOMContentLoaded', () => { 
+            addVocabRow(); 
+            addLessonQuizRow(); // Add one default quiz row
+            updateThemeIcon(savedTheme); 
+            
+            const editor = get('lesson-content-editor');
+            if(editor) {
+                editor.addEventListener('paste', (e) => {
+                    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                    let blob = null;
+                    for (let i = 0; i < items.length; i++) {
+                        if (items[i].type.indexOf("image") === 0) {
+                            blob = items[i].getAsFile();
+                            e.preventDefault(); 
+                            break;
+                        }
+                    }
+                    if (blob) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            const img = `<img src="${event.target.result}" style="max-width:100%;">`;
+                            document.execCommand('insertHTML', false, img);
+                        };
+                        reader.readAsDataURL(blob);
+                    }
+                });
+            }
+        });
+
+        // --- HELPERS ---
+        window.scrollToLessons = () => { const el = get('lesson-anchor'); if(el) el.scrollIntoView({behavior: 'smooth'}); }
+        function getYouTubeEmbedUrl(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? 'https://www.youtube.com/embed/' + match[2] : null;
+        }
+
+        // --- DYNAMIC ROWS ---
+        window.addVocabRow = (word='', ipa='', mean='') => {
+            const container = get('vocab-input-container');
+            const div = document.createElement('div');
+            div.className = 'vocab-row-input';
+            div.innerHTML = `
+                <input type="text" class="input-field vocab-word" value="${word}" placeholder="Word">
+                <input type="text" class="input-field vocab-ipa" value="${ipa}" placeholder="IPA">
+                <input type="text" class="input-field vocab-mean" value="${mean}" placeholder="Meaning">
+                <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
+            `;
+            container.appendChild(div);
+        }
+
+        // NEW: Dynamic Lesson Quiz Row
+        window.addLessonQuizRow = (data = {}) => {
+            const container = get('lesson-quiz-container');
+            const div = document.createElement('div');
+            div.className = 'lesson-quiz-row';
+            div.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-times"></i></button>
+                <input type="text" class="input-field lq-question" placeholder="Câu hỏi..." value="${data.question || ''}" style="margin-bottom: 10px; font-weight: bold;">
+                <div class="options-grid" style="margin-bottom: 10px;">
+                    <input type="text" class="input-field lq-opt-a" placeholder="Đáp án A" value="${data.options?.A || ''}">
+                    <input type="text" class="input-field lq-opt-b" placeholder="Đáp án B" value="${data.options?.B || ''}">
+                    <input type="text" class="input-field lq-opt-c" placeholder="Đáp án C" value="${data.options?.C || ''}">
+                    <input type="text" class="input-field lq-opt-d" placeholder="Đáp án D" value="${data.options?.D || ''}">
+                </div>
+                <label>Đáp án đúng:</label>
+                <select class="input-field lq-correct" style="width: 100px;">
+                    <option value="A" ${data.correct === 'A' ? 'selected' : ''}>A</option>
+                    <option value="B" ${data.correct === 'B' ? 'selected' : ''}>B</option>
+                    <option value="C" ${data.correct === 'C' ? 'selected' : ''}>C</option>
+                    <option value="D" ${data.correct === 'D' ? 'selected' : ''}>D</option>
+                </select>
+            `;
+            container.appendChild(div);
+        }
+
+        // --- NAVIGATION ---
+        window.switchAuthRole = (role) => {
+            selectedRoleAuth = role;
+            document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        window.navigate = (viewId) => {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            
+            if (viewId === 'teacher-create-lesson') {
+                if (!isEditingMode) resetLessonForm();
+                isEditingMode = false; 
+            }
+            
+            if (viewId === 'teacher-create-quiz') { resetQuizForm(); fetchQuizBank(); show('view-teacher-create-quiz'); }
+            else if (viewId === 'student-lessons') { show('view-student-lessons'); fetchLessons(); }
+            else if (viewId === 'student-quiz') { show('view-student-quiz'); hide('quiz-play-screen'); show('quiz-start-screen'); }
+            else if (viewId === 'leaderboard') { show('view-leaderboard'); fetchLeaderboard(); }
+            else if (viewId === 'teacher-create-lesson') { show('view-teacher-create-lesson'); }
+            else if (viewId === 'student-writing') { show('view-student-writing'); fetchStudentWriting(); }
+            else if (viewId === 'teacher-writing-manage') { 
+                show('view-teacher-writing-manage'); 
+                fetchTeacherWritingDashboard(); 
+                fetchTeacherAssignments(); 
+                cancelEditAssignment(); // Reset form on entry
+            }
+            else if (viewId === 'view-lesson-detail') { show('view-lesson-detail'); }
+            
+            const activeMenu = document.querySelector(`.menu-item[onclick="navigate('${viewId}')"]`);
+            if (activeMenu) activeMenu.classList.add('active');
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            toggleLoading(true);
+            if (user) {
+                currentUser = user;
+                try {
+                    const userDoc = await getDoc(doc(db, getUserProfilePath(user.uid), "info"));
+                    currentRole = userDoc.exists() ? userDoc.data().role : 'student';
+                    setupDashboard(user, currentRole);
+                } catch (e) { currentRole = 'student'; setupDashboard(user, 'student'); }
+            } else { show('auth-screen'); hide('app-dashboard'); }
+            toggleLoading(false);
+        });
+
+        function setupDashboard(user, role) {
+            hide('auth-screen'); show('app-dashboard');
+            get('user-email').textContent = user.email || "User";
+            get('user-badge').textContent = role === 'teacher' ? 'Giáo viên' : 'Sinh viên';
+            if (role === 'teacher') { show('teacher-menu'); hide('student-menu'); window.navigate('teacher-create-lesson'); }
+            else { show('student-menu'); hide('teacher-menu'); window.navigate('student-lessons'); }
+        }
+
+        get('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            toggleLoading(true);
+            try {
+                await signInWithEmailAndPassword(auth, get('email').value, get('password').value);
+                showToast("Đăng nhập thành công!");
+            } catch (err) { showToast("Lỗi: " + err.message); toggleLoading(false); }
+        });
+
+        get('btn-signup').addEventListener('click', async () => {
+            toggleLoading(true);
+            try {
+                const uc = await createUserWithEmailAndPassword(auth, get('email').value, get('password').value);
+                await setDoc(doc(db, getUserProfilePath(uc.user.uid), "info"), { email: get('email').value, role: selectedRoleAuth });
+                showToast("Đăng ký thành công!");
+            } catch (err) { showToast("Lỗi: " + err.message); toggleLoading(false); }
+        });
+
+        window.handleLogout = () => signOut(auth).then(() => location.reload());
+
+        // --- WRITING MODULE ---
+        
+        get('create-writing-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (currentRole !== 'teacher') return;
+            toggleLoading(true);
+            
+            const assignmentData = {
+                title: get('writing-title').value,
+                description: get('writing-desc').value,
+                createdBy: currentUser.uid,
+                createdAt: new Date()
+            };
+
+            try {
+                if (editingAssignmentId) {
+                    // Update Existing
+                    delete assignmentData.createdAt; // Don't overwrite creation time
+                    assignmentData.updatedAt = new Date();
+                    await updateDoc(doc(db, PUBLIC_DATA_PATH, "writing_assignments", editingAssignmentId), assignmentData);
+                    showToast("Đã cập nhật đề bài!");
+                } else {
+                    // Create New
+                    await addDoc(collection(db, PUBLIC_DATA_PATH, "writing_assignments"), assignmentData);
+                    showToast("Đã giao bài tập mới!");
+                }
+                cancelEditAssignment(); // Reset Form
+                fetchTeacherAssignments(); // Refresh list
+            } catch (err) { showToast("Lỗi: " + err.message); }
+            toggleLoading(false);
+        });
+
+        // 1. Fetch Overview (Pending Submissions)
+        window.fetchTeacherWritingDashboard = async () => {
+            toggleLoading(true);
+            const pendingContainer = get('teacher-pending-list');
+            pendingContainer.innerHTML = ''; 
+            try {
+                const qPending = query(collection(db, PUBLIC_DATA_PATH, "writing_submissions"), where("status", "==", "pending"));
+                const snapPending = await getDocs(qPending);
+                if(snapPending.empty) pendingContainer.innerHTML = '<p class="text-light">Không có bài chờ chấm gấp.</p>';
+                snapPending.forEach(doc => {
+                    const d = doc.data();
+                    pendingContainer.innerHTML += `
+                    <div class="writing-item" style="border-left:4px solid var(--warning)">
+                        <div class="writing-header"><div class="writing-title">${d.assignmentTitle || 'Bài tập'}</div><span class="badge badge-pending">Pending</span></div>
+                        <div class="writing-meta">${d.studentEmail} - ${d.createdAt ? new Date(d.createdAt.seconds*1000).toLocaleString() : ''}</div>
+                        <button class="btn btn-primary btn-sm" onclick="openGrading('${doc.id}')">Chấm bài</button>
+                    </div>`;
+                });
+            } catch(e){ console.error(e); }
+            toggleLoading(false);
+        };
+
+        // 2. NEW: Fetch Assignments List
+        window.fetchTeacherAssignments = async () => {
+            const container = get('teacher-assignments-list');
+            container.innerHTML = '';
+            try {
+                const q = query(collection(db, PUBLIC_DATA_PATH, "writing_assignments"), orderBy("createdAt", "desc"));
+                const snap = await getDocs(q);
+                if(snap.empty) {
+                    container.innerHTML = '<p class="text-light">Chưa có đề bài nào.</p>';
+                } else {
+                    snap.forEach(doc => {
+                        const d = doc.data();
+                        const div = document.createElement('div');
+                        div.className = 'assignment-card';
+                        div.innerHTML = `
+                            <div class="assign-info">
+                                <h4>${d.title}</h4>
+                                <p>${d.description.substring(0, 60)}${d.description.length>60?'...':''}</p>
+                                <p style="font-size:0.8rem; margin-top:5px;">Ngày tạo: ${d.createdAt ? new Date(d.createdAt.seconds*1000).toLocaleDateString() : 'N/A'}</p>
+                            </div>
+                            <div class="assign-actions">
+                                <button class="btn btn-outline btn-sm" onclick="openAssignmentDetail('${doc.id}')" style="width:100%">Xem chi tiết &rarr;</button>
+                                <div class="assign-btns">
+                                    <button class="btn btn-warning btn-sm" style="flex:1" onclick="editAssignment('${doc.id}')" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn btn-danger btn-sm" style="flex:1" onclick="deleteAssignment('${doc.id}')" title="Xóa đề"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(div);
+                    });
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        // CRUD FOR ASSIGNMENTS
+        window.editAssignment = async (id) => {
+            toggleLoading(true);
+            try {
+                const docSnap = await getDoc(doc(db, PUBLIC_DATA_PATH, "writing_assignments", id));
+                if(docSnap.exists()) {
+                    const d = docSnap.data();
+                    editingAssignmentId = id;
+                    get('writing-title').value = d.title;
+                    get('writing-desc').value = d.description;
+                    
+                    // UI Updates
+                    get('writing-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Cập nhật đề bài';
+                    get('btn-submit-writing').textContent = "Cập nhật";
+                    show('btn-cancel-writing');
+                    
+                    window.scrollTo(0, 0);
+                }
+            } catch(e) { showToast("Lỗi: " + e.message); }
+            toggleLoading(false);
+        }
+
+        window.deleteAssignment = async (id) => {
+            if(!confirm("CẢNH BÁO: Xóa đề bài này sẽ không xóa các bài nộp của sinh viên, nhưng đề bài sẽ biến mất khỏi danh sách. Bạn có chắc chắn?")) return;
+            toggleLoading(true);
+            try {
+                await deleteDoc(doc(db, PUBLIC_DATA_PATH, "writing_assignments", id));
+                showToast("Đã xóa đề bài.");
+                fetchTeacherAssignments();
+            } catch(e) { showToast("Lỗi xóa: " + e.message); }
+            toggleLoading(false);
+        }
+
+        window.cancelEditAssignment = () => {
+            editingAssignmentId = null;
+            get('create-writing-form').reset();
+            get('writing-form-title').innerHTML = '<i class="fa-solid fa-plus-circle"></i> Tạo đề bài mới';
+            get('btn-submit-writing').textContent = "Giao bài";
+            hide('btn-cancel-writing');
+        }
+
+        // 3. NEW: Open Assignment Detail (Submissions)
+        window.openAssignmentDetail = async (assignmentId) => {
+            toggleLoading(true);
+            try {
+                // Get Assignment Details
+                const aDoc = await getDoc(doc(db, PUBLIC_DATA_PATH, "writing_assignments", assignmentId));
+                if(!aDoc.exists()) return showToast("Không tìm thấy đề bài");
+                const aData = aDoc.data();
+
+                hide('view-teacher-writing-manage');
+                show('view-teacher-assignment-detail');
+                get('wad-title').textContent = aData.title;
+                get('wad-desc').textContent = aData.description;
+
+                const pendingContainer = get('wad-pending-list');
+                const gradedContainer = get('wad-graded-list');
+                pendingContainer.innerHTML = ''; gradedContainer.innerHTML = '';
+
+                // Fetch Submissions for this Assignment
+                const qSubs = query(collection(db, PUBLIC_DATA_PATH, "writing_submissions"), where("assignmentId", "==", assignmentId));
+                const snapSubs = await getDocs(qSubs);
+
+                if(snapSubs.empty) {
+                    pendingContainer.innerHTML = '<p class="text-light">Chưa có bài nộp nào.</p>';
+                } else {
+                    snapSubs.forEach(doc => {
+                        const d = doc.data();
+                        const itemHtml = `
+                            <div class="writing-item" style="border-left: 4px solid ${d.status === 'graded' ? 'var(--success)' : 'var(--warning)'}">
+                                <div class="writing-meta" style="font-weight:bold;">${d.studentEmail}</div>
+                                <div class="writing-meta">Nộp: ${d.createdAt ? new Date(d.createdAt.seconds*1000).toLocaleString() : 'N/A'}</div>
+                                ${d.status === 'graded' ? `<div class="score-display">${d.score}/100</div>` : ''}
+                                <button class="btn btn-sm ${d.status === 'graded' ? 'btn-outline' : 'btn-primary'}" style="margin-top:5px;" onclick="openGrading('${doc.id}')">
+                                    ${d.status === 'graded' ? 'Sửa điểm' : 'Chấm bài'}
+                                </button>
+                            </div>
+                        `;
+                        
+                        if (d.status === 'pending') pendingContainer.innerHTML += itemHtml;
+                        else gradedContainer.innerHTML += itemHtml;
+                    });
+                }
+                
+                if(pendingContainer.innerHTML === '') pendingContainer.innerHTML = '<p class="text-light">Không có bài chờ chấm.</p>';
+                if(gradedContainer.innerHTML === '') gradedContainer.innerHTML = '<p class="text-light">Chưa có bài đã chấm.</p>';
+
+            } catch(e) { console.error(e); showToast("Lỗi tải chi tiết"); }
+            toggleLoading(false);
+        }
+
+        // FIX: IMPLEMENTED STUDENT FETCH WRITING
+        window.fetchStudentWriting = async () => { 
+            toggleLoading(true);
+            const container = get('student-writing-list');
+            container.innerHTML = '';
+            try {
+                // 1. Get All Assignments
+                const assignSnap = await getDocs(query(collection(db, PUBLIC_DATA_PATH, "writing_assignments"), orderBy("createdAt", "desc")));
+                
+                // 2. Get My Submissions
+                const mySubSnap = await getDocs(query(collection(db, PUBLIC_DATA_PATH, "writing_submissions"), where("studentId", "==", currentUser.uid)));
+                const mySubs = {};
+                mySubSnap.forEach(doc => { mySubs[doc.data().assignmentId] = doc.data(); });
+
+                if(assignSnap.empty) {
+                    container.innerHTML = '<p class="text-light">Chưa có bài tập nào được giao.</p>';
+                } else {
+                    assignSnap.forEach(doc => {
+                        const a = doc.data();
+                        const assignId = doc.id;
+                        const submission = mySubs[assignId];
+
+                        const div = document.createElement('div');
+                        div.className = 'writing-item';
+                        
+                        // Determine Status Badge
+                        let statusBadge = '<span class="badge" style="background:#9ca3af">Chưa nộp</span>';
+                        if(submission) {
+                            statusBadge = submission.status === 'graded' 
+                                ? '<span class="badge badge-graded">Đã chấm</span>' 
+                                : '<span class="badge badge-pending">Đang chờ chấm</span>';
+                        }
+
+                        let contentHtml = `
+                            <div class="writing-header">
+                                <div class="writing-title">${a.title}</div>
+                                ${statusBadge}
+                            </div>
+                            <p style="margin-bottom:10px;">${a.description}</p>
+                        `;
+
+                        if (!submission) {
+                            // Submission Form
+                            contentHtml += `
+                                <div class="submission-box">
+                                    <textarea id="sub-content-${assignId}" class="input-field" rows="4" placeholder="Nhập bài làm của bạn tại đây..."></textarea>
+                                    <div class="input-group" style="margin-top:10px;">
+                                        <input type="url" id="sub-image-${assignId}" class="input-field" placeholder="Link ảnh minh họa (tùy chọn)...">
+                                    </div>
+                                    <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="submitWriting('${assignId}', '${a.title}')">Nộp bài</button>
+                                </div>
+                            `;
+                        } else {
+                            // View Submission & Feedback
+                            contentHtml += `
+                                <div class="submission-box">
+                                    <p><strong>Bài làm của bạn:</strong></p>
+                                    <p style="white-space:pre-wrap; color:var(--text-light);">${submission.content}</p>
+                                    ${submission.imageUrl ? `<p style="margin-top:10px;"><strong>Ảnh minh họa:</strong> <a href="${submission.imageUrl}" target="_blank" style="color:var(--primary-color)">Xem ảnh</a></p>` : ''}
+                                </div>
+                            `;
+                            if (submission.status === 'graded') {
+                                contentHtml += `
+                                    <div class="grade-feedback">
+                                        <p style="font-size:1.1rem;"><strong>Điểm số: ${submission.score}/100</strong></p>
+                                        <p><strong>Lời phê của GV:</strong> ${submission.feedback}</p>
+                                    </div>
+                                `;
+                            }
+                        }
+                        div.innerHTML = contentHtml;
+                        container.appendChild(div);
+                    });
+                }
+            } catch(e) { console.error(e); showToast("Lỗi tải bài tập: " + e.message); }
+            toggleLoading(false);
+        };
+
+        window.submitWriting = async (assignmentId, assignmentTitle) => {
+            const content = get(`sub-content-${assignmentId}`).value;
+            const imageUrl = get(`sub-image-${assignmentId}`).value;
+            if(!content.trim()) return showToast("Vui lòng nhập nội dung!");
+            
+            if(!confirm("Bạn có chắc muốn nộp bài? Không thể sửa sau khi nộp.")) return;
+
+            toggleLoading(true);
+            try {
+                await addDoc(collection(db, PUBLIC_DATA_PATH, "writing_submissions"), {
+                    assignmentId: assignmentId,
+                    assignmentTitle: assignmentTitle,
+                    studentId: currentUser.uid,
+                    studentEmail: currentUser.email,
+                    content: content,
+                    imageUrl: imageUrl || null, 
+                    score: null,
+                    feedback: '',
+                    status: 'pending',
+                    createdAt: new Date()
+                });
+                showToast("Nộp bài thành công!");
+                fetchStudentWriting();
+            } catch(e) { showToast("Lỗi nộp bài: " + e.message); }
+            toggleLoading(false);
+        }
+
+        window.openGrading = async (submissionId) => {
+            toggleLoading(true);
+            try {
+                const docSnap = await getDoc(doc(db, PUBLIC_DATA_PATH, "writing_submissions", submissionId));
+                if(docSnap.exists()) {
+                    const data = docSnap.data();
+                    // Hide potentially active views
+                    hide('view-teacher-writing-manage');
+                    hide('view-teacher-assignment-detail');
+                    
+                    show('view-teacher-grading-detail');
+                    
+                    get('grade-assignment-title').textContent = data.assignmentTitle;
+                    get('grade-student-email').textContent = data.studentEmail;
+                    get('grade-student-content').textContent = data.content;
+                    
+                    if (data.imageUrl) {
+                        get('grade-student-image-container').style.display = 'block';
+                        get('grade-student-image').src = data.imageUrl;
+                    } else {
+                        get('grade-student-image-container').style.display = 'none';
+                    }
+
+                    if (data.status === 'graded') {
+                        get('grade-score').value = data.score;
+                        get('grade-feedback').value = data.feedback;
+                    } else {
+                         get('grading-form').reset();
+                    }
+
+                    get('grade-submission-id').value = submissionId;
+                }
+            } catch(e) { showToast("Lỗi mở bài làm"); }
+            toggleLoading(false);
+        }
+
+        get('grading-form').addEventListener('submit', async(e) => {
+            e.preventDefault();
+            toggleLoading(true);
+            const subId = get('grade-submission-id').value;
+            if (!subId) { showToast("Lỗi: Không tìm thấy ID bài làm"); toggleLoading(false); return; }
+            
+            const score = parseInt(get('grade-score').value);
+            const feedback = get('grade-feedback').value;
+            try {
+                await updateDoc(doc(db, PUBLIC_DATA_PATH, "writing_submissions", subId), {
+                    score: score,
+                    feedback: feedback,
+                    status: 'graded',
+                    gradedAt: new Date()
+                });
+                showToast("Đã chấm điểm xong!");
+                // Go back to Manage view main screen
+                navigate('teacher-writing-manage');
+            } catch(e) { showToast("Lỗi lưu điểm: " + e.message); }
+            toggleLoading(false);
+        });
+
+        // ---------------- LESSON LOGIC (CORE UPDATES) ----------------
+
+        function resetLessonForm() {
+            editingLessonId = null;
+            get('create-lesson-form').reset();
+            get('lesson-content-editor').innerHTML = '';
+            get('form-title').textContent = "Soạn bài giảng mới";
+            get('form-submit-btn').textContent = "Đăng bài";
+            hide('btn-cancel-edit');
+            get('vocab-input-container').innerHTML = '';
+            addVocabRow();
+            get('lesson-quiz-container').innerHTML = '';
+            addLessonQuizRow(); // Default empty row
+        }
+
+        window.editLesson = async (lessonId) => {
+            toggleLoading(true);
+            try {
+                const docSnap = await getDoc(doc(db, PUBLIC_DATA_PATH, "lessons", lessonId));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    editingLessonId = lessonId;
+                    
+                    get('lesson-title').value = data.title;
+                    get('lesson-desc').value = data.desc;
+                    get('lesson-image').value = data.image || '';
+                    get('lesson-content-editor').innerHTML = data.content;
+                    get('lesson-video').value = data.video || '';
+                    
+                    const vContainer = get('vocab-input-container');
+                    vContainer.innerHTML = '';
+                    if (Array.isArray(data.vocabList) && data.vocabList.length > 0) {
+                        data.vocabList.forEach(v => addVocabRow(v.word, v.ipa, v.meaning));
+                    } else { addVocabRow(); }
+                    
+                    // LOAD MULTI QUIZ
+                    const qContainer = get('lesson-quiz-container');
+                    qContainer.innerHTML = '';
+                    // Backward compatibility: check 'miniQuizList' array OR single 'miniQuiz' object
+                    if (Array.isArray(data.miniQuizList) && data.miniQuizList.length > 0) {
+                        data.miniQuizList.forEach(q => addLessonQuizRow(q));
+                    } else if (data.miniQuiz && data.miniQuiz.question) {
+                        addLessonQuizRow(data.miniQuiz);
+                    } else {
+                        addLessonQuizRow(); // Add empty
+                    }
+
+                    get('form-title').textContent = "Chỉnh sửa bài giảng";
+                    get('form-submit-btn').textContent = "Cập nhật";
+                    show('btn-cancel-edit');
+                    isEditingMode = true;
+                    navigate('teacher-create-lesson');
+                }
+            } catch(e) { showToast("Lỗi tải dữ liệu: " + e.message); }
+            toggleLoading(false);
+        }
+        
+        window.deleteLesson = async (lessonId) => {
+            if(!confirm("Bạn có chắc chắn muốn xóa bài giảng này?")) return;
+            toggleLoading(true);
+            try {
+                await deleteDoc(doc(db, PUBLIC_DATA_PATH, "lessons", lessonId));
+                showToast("Đã xóa bài giảng.");
+                fetchLessons();
+            } catch(e) { showToast("Lỗi xóa: " + e.message); }
+            toggleLoading(false);
+        }
+
+        window.cancelEdit = () => { 
+            isEditingMode = false;
+            resetLessonForm(); 
+        }
+
+        get('create-lesson-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (currentRole !== 'teacher') return;
+            toggleLoading(true);
+            
+            const richContent = get('lesson-content-editor').innerHTML;
+
+            const vocabRows = document.querySelectorAll('.vocab-row-input');
+            let vocabData = [];
+            vocabRows.forEach(row => {
+                const w = row.querySelector('.vocab-word').value;
+                const i = row.querySelector('.vocab-ipa').value;
+                const m = row.querySelector('.vocab-mean').value;
+                if(w) vocabData.push({ word: w, ipa: i, meaning: m });
+            });
+
+            // COLLECT QUIZ DATA
+            const quizRows = document.querySelectorAll('.lesson-quiz-row');
+            let quizDataList = [];
+            quizRows.forEach(row => {
+                const q = row.querySelector('.lq-question').value;
+                if(q.trim()) {
+                    quizDataList.push({
+                        question: q,
+                        options: {
+                            A: row.querySelector('.lq-opt-a').value,
+                            B: row.querySelector('.lq-opt-b').value,
+                            C: row.querySelector('.lq-opt-c').value,
+                            D: row.querySelector('.lq-opt-d').value
+                        },
+                        correct: row.querySelector('.lq-correct').value
+                    });
+                }
+            });
+
+            const lessonData = {
+                title: get('lesson-title').value,
+                desc: get('lesson-desc').value,
+                image: get('lesson-image').value,
+                content: richContent,
+                vocabList: vocabData,
+                video: get('lesson-video').value,
+                miniQuizList: quizDataList, // Save as Array
+                author: currentUser.email,
+                updatedAt: new Date()
+            };
+
+            if (!editingLessonId) lessonData.createdAt = new Date();
+
+            try {
+                if (editingLessonId) {
+                    await updateDoc(doc(db, PUBLIC_DATA_PATH, "lessons", editingLessonId), lessonData);
+                    showToast("Đã cập nhật bài giảng!");
+                } else {
+                    await addDoc(collection(db, PUBLIC_DATA_PATH, "lessons"), lessonData);
+                    showToast("Đã đăng bài học mới!");
+                }
+
+                // AUTO IMPORT TO GLOBAL QUIZ BANK
+                if (quizDataList.length > 0) {
+                    console.log("Auto-importing questions to bank...");
+                    for (const q of quizDataList) {
+                        await addDoc(collection(db, PUBLIC_DATA_PATH, "quizzes"), {
+                            ...q,
+                            createdAt: new Date(),
+                            source: 'lesson-import'
+                        });
+                    }
+                    showToast("Đã tự động thêm câu hỏi vào Ngân hàng!");
+                }
+
+                isEditingMode = false;
+                resetLessonForm();
+            } catch (err) { showToast("Lỗi: " + err.message); }
+            toggleLoading(false);
+        });
+
+        // --- LESSON VIEW ---
+
+        async function fetchLessons() {
+            /* ... Previous fetchLessons code ... */
+            toggleLoading(true);
+            const listContainer = get('lesson-list'); listContainer.innerHTML = '';
+            try {
+                const q = query(collection(db, PUBLIC_DATA_PATH, "lessons"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) listContainer.innerHTML = '<p>Chưa có bài học nào.</p>';
+                querySnapshot.forEach((doc) => {
+                    const d = doc.data();
+                    const imgStyle = d.image ? `background-image: url('${d.image}');` : '';
+                    const imgClass = d.image ? 'lesson-img' : 'lesson-img no-image';
+                    const imgContent = d.image ? '' : '<i class="fa-solid fa-atom"></i>';
+                    let teacherControls = currentRole === 'teacher' ? `
+                        <div class="teacher-controls">
+                            <button class="btn btn-warning btn-sm" onclick="editLesson('${doc.id}')"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteLesson('${doc.id}')"><i class="fa-solid fa-trash"></i> Xóa</button>
+                        </div>` : '';
+                    const card = document.createElement('div');
+                    card.className = 'lesson-card';
+                    card.innerHTML = `<div class="${imgClass}" style="${imgStyle}">${imgContent}</div>
+                        <div class="lesson-body">
+                            <div class="lesson-title">${d.title}</div>
+                            <div class="lesson-desc">${d.desc}</div>
+                            <button class="btn btn-outline" style="width:100%" onclick="openLesson('${doc.id}')">Học ngay</button>
+                            ${teacherControls}
+                        </div>`;
+                    listContainer.appendChild(card);
+                });
+            } catch (err) { console.error(err); }
+            toggleLoading(false);
+        }
+
+        window.openLesson = async (lessonId) => {
+            toggleLoading(true);
+            try {
+                const docSnap = await getDoc(doc(db, PUBLIC_DATA_PATH, "lessons", lessonId));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    hide('view-student-lessons'); show('view-lesson-detail');
+                    get('current-lesson-id').value = lessonId; 
+                    
+                    if (currentUser) {
+                        const pSnap = await getDoc(doc(db, getUserProgressPath(currentUser.uid), lessonId));
+                        updateCompleteBtnUI(pSnap.exists() && pSnap.data().completed);
+                    }
+
+                    get('detail-title').textContent = data.title;
+                    get('detail-content').innerHTML = data.content;
+                    if (data.image) {
+                        get('detail-image').style.display = 'block';
+                        get('detail-image').style.backgroundImage = `url('${data.image}')`;
+                    } else { get('detail-image').style.display = 'none'; }
+                    
+                    let vocabHtml = '';
+                    if (Array.isArray(data.vocabList) && data.vocabList.length > 0) {
+                        vocabHtml = `<table class="vocab-table"><thead><tr><th>Word</th><th>Pronunciation</th><th>Meaning</th></tr></thead><tbody>
+                                    ${data.vocabList.map(v => `<tr><td><b>${v.word}</b></td><td>${v.ipa || ''}</td><td>${v.meaning || ''}</td></tr>`).join('')}
+                                </tbody></table>`;
+                    } else { vocabHtml = '<p>Không có từ vựng.</p>'; }
+                    get('detail-vocab-container').innerHTML = vocabHtml;
+                    
+                    const embedUrl = getYouTubeEmbedUrl(data.video);
+                    if(embedUrl) get('detail-video-container').innerHTML = `<iframe width="100%" height="400" src="${embedUrl}" frameborder="0" allowfullscreen style="border-radius:8px;"></iframe>`;
+                    else get('detail-video-container').innerHTML = '';
+
+                    // RENDER MULTI MINI QUIZ
+                    const quizListContainer = get('mini-quiz-list-display');
+                    quizListContainer.innerHTML = '';
+                    const qBox = get('detail-mini-quiz');
+                    
+                    let questions = [];
+                    if (Array.isArray(data.miniQuizList) && data.miniQuizList.length > 0) {
+                        questions = data.miniQuizList;
+                    } else if (data.miniQuiz && data.miniQuiz.question) {
+                        questions = [data.miniQuiz];
+                    }
+
+                    if (questions.length > 0) {
+                        show('detail-mini-quiz');
+                        questions.forEach((q, index) => {
+                            const div = document.createElement('div');
+                            div.className = 'mini-quiz-item';
+                            div.innerHTML = `
+                                <p style="font-weight: bold; margin-bottom: 10px; color: var(--text-dark);">Câu ${index+1}: ${q.question}</p>
+                                <div class="options-grid" id="mq-opts-${index}"></div>
+                                <p id="mq-feedback-${index}" style="margin-top: 10px; font-weight: bold; height: 20px;"></p>
+                            `;
+                            quizListContainer.appendChild(div);
+                            
+                            const optsContainer = document.getElementById(`mq-opts-${index}`);
+                            ['A','B','C','D'].forEach(key => {
+                                if(q.options[key]) {
+                                    const btn = document.createElement('button');
+                                    btn.className = 'option-btn';
+                                    btn.textContent = `${key}. ${q.options[key]}`;
+                                    btn.onclick = () => checkMiniQuizAnswer(key, q.correct, index, btn);
+                                    optsContainer.appendChild(btn);
+                                }
+                            });
+                        });
+                    } else {
+                        hide('detail-mini-quiz');
+                    }
+                }
+            } catch (err) { showToast("Lỗi tải bài học"); console.error(err); }
+            toggleLoading(false);
+        }
+
+        window.checkMiniQuizAnswer = (selected, correct, index, btn) => {
+            const feedback = document.getElementById(`mq-feedback-${index}`);
+            const btns = document.getElementById(`mq-opts-${index}`).querySelectorAll('.option-btn');
+            
+            btns.forEach(b => {
+                b.classList.add('disabled'); 
+                b.onclick = null;
+                if(b.textContent.startsWith(correct + '.')) b.classList.add('correct');
+            });
+
+            if(selected === correct) {
+                feedback.textContent = "Chính xác!";
+                feedback.style.color = "var(--success)";
+            } else {
+                btn.classList.add('wrong');
+                feedback.textContent = "Sai rồi!";
+                feedback.style.color = "var(--error)";
+            }
+        }
+
+        window.toggleLessonCompletion = async () => {
+            const lessonId = get('current-lesson-id').value;
+            if (!lessonId || !currentUser) return;
+            toggleLoading(true);
+            const progressRef = doc(db, getUserProgressPath(currentUser.uid), lessonId);
+            try {
+                const docSnap = await getDoc(progressRef);
+                if (docSnap.exists() && docSnap.data().completed) {
+                    await updateDoc(progressRef, { completed: false });
+                    updateCompleteBtnUI(false);
+                } else {
+                    await setDoc(progressRef, { completed: true, timestamp: new Date() });
+                    updateCompleteBtnUI(true);
+                    showToast("Đã hoàn thành bài học! +1 Tick");
+                }
+            } catch(e) { showToast("Lỗi lưu tiến độ"); }
+            toggleLoading(false);
+        }
+        function updateCompleteBtnUI(isComplete) {
+            const btn = get('btn-mark-done');
+            if (isComplete) { btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> Đã hoàn thành'; btn.className = 'btn btn-success'; } 
+            else { btn.innerHTML = '<i class="fa-regular fa-circle-check"></i> Đánh dấu đã học'; btn.className = 'btn btn-outline'; }
+        }
+
+        // --- QUIZ BANK & GAME ---
+        window.fetchQuizBank = async () => {
+            toggleLoading(true);
+            const container = get('quiz-bank-list'); container.innerHTML = '';
+            try {
+                const q = query(collection(db, PUBLIC_DATA_PATH, "quizzes"), orderBy("createdAt", "desc"));
+                const snap = await getDocs(q);
+                if (snap.empty) container.innerHTML = '<p>Ngân hàng câu hỏi trống.</p>';
+                else snap.forEach(doc => {
+                    const d = doc.data();
+                    const sourceTag = d.source === 'lesson-import' ? '<span class="badge" style="background:#6366f1; margin-left:5px;">Lesson Import</span>' : '';
+                    const div = document.createElement('div'); div.className = 'quiz-bank-item';
+                    div.innerHTML = `<div class="quiz-bank-content">
+                        <div class="quiz-bank-question">${d.question} ${sourceTag}</div>
+                        <div class="quiz-bank-option">A: ${d.options.A}</div>
+                        <div class="quiz-bank-option">B: ${d.options.B}</div>
+                        <div class="quiz-bank-option">C: ${d.options.C}</div>
+                        <div class="quiz-bank-option">D: ${d.options.D}</div>
+                        <div style="margin-top:5px; font-size:0.9rem;">Đáp án đúng: <span class="quiz-bank-correct">${d.correct}</span></div>
+                    </div>
+                    <div class="quiz-bank-controls">
+                        <button class="btn btn-warning btn-sm" onclick="editQuizQuestion('${doc.id}')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteQuizQuestion('${doc.id}')"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
+                    container.appendChild(div);
+                });
+            } catch(e) { console.error(e); }
+            toggleLoading(false);
+        }
+        
+        // ... (Edit/Delete/Create Quiz Bank functions - same as before) ...
+        window.editQuizQuestion = async (id) => {
+            toggleLoading(true);
+            try {
+                const docSnap = await getDoc(doc(db, PUBLIC_DATA_PATH, "quizzes", id));
+                if (docSnap.exists()) {
+                    const d = docSnap.data();
+                    editingQuizId = id;
+                    get('quiz-question').value = d.question;
+                    get('opt-a').value = d.options.A;
+                    get('opt-b').value = d.options.B;
+                    get('opt-c').value = d.options.C;
+                    get('opt-d').value = d.options.D;
+                    get('correct-opt').value = d.correct;
+                    get('quiz-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa câu hỏi';
+                    get('btn-submit-quiz').textContent = "Cập nhật";
+                    show('btn-cancel-quiz');
+                    window.scrollTo(0, 0);
+                }
+            } catch(e) { showToast("Lỗi: " + e.message); }
+            toggleLoading(false);
+        }
+        window.deleteQuizQuestion = async (id) => {
+            if (!confirm("Bạn chắc chắn muốn xóa câu hỏi này?")) return;
+            toggleLoading(true);
+            try { await deleteDoc(doc(db, PUBLIC_DATA_PATH, "quizzes", id)); showToast("Đã xóa câu hỏi"); fetchQuizBank(); } catch(e) { showToast("Lỗi xóa: " + e.message); }
+            toggleLoading(false);
+        }
+        window.resetQuizForm = () => {
+            editingQuizId = null; get('create-quiz-form').reset();
+            get('quiz-form-title').innerHTML = '<i class="fa-solid fa-plus-circle"></i> Thêm câu hỏi mới';
+            get('btn-submit-quiz').textContent = "Lưu câu hỏi"; hide('btn-cancel-quiz');
+        }
+        get('create-quiz-form').addEventListener('submit', async (e) => {
+            e.preventDefault(); if (currentRole !== 'teacher') return; toggleLoading(true);
+            const quizData = {
+                question: get('quiz-question').value,
+                options: { A: get('opt-a').value, B: get('opt-b').value, C: get('opt-c').value, D: get('opt-d').value },
+                correct: get('correct-opt').value, updatedAt: new Date()
+            };
+            if (!editingQuizId) quizData.createdAt = new Date();
+            try {
+                if (editingQuizId) { await updateDoc(doc(db, PUBLIC_DATA_PATH, "quizzes", editingQuizId), quizData); showToast("Đã cập nhật câu hỏi!"); } 
+                else { await addDoc(collection(db, PUBLIC_DATA_PATH, "quizzes"), quizData); showToast("Đã thêm câu hỏi mới!"); }
+                resetQuizForm(); fetchQuizBank();
+            } catch (err) { showToast("Lỗi: " + err.message); }
+            toggleLoading(false);
+        });
+
+        // ... (Game and Leaderboard Logic - Same as before) ...
+        let quizQuestions=[], currentQIndex=0, score=0;
+        window.startQuiz = async () => {
+            toggleLoading(true);
+            try {
+                const qSnap = await getDocs(collection(db, PUBLIC_DATA_PATH, "quizzes"));
+                let allQ = []; qSnap.forEach(doc => allQ.push({id: doc.id, ...doc.data()}));
+                if (allQ.length === 0) { showToast("Chưa có câu hỏi!"); toggleLoading(false); return; }
+                quizQuestions = allQ.sort(()=>0.5-Math.random()).slice(0,10);
+                currentQIndex=0; score=0;
+                hide('quiz-start-screen'); show('quiz-play-screen');
+                renderQuestion();
+            } catch (err) { showToast("Lỗi tải câu hỏi"); }
+            toggleLoading(false);
+        }
+        function renderQuestion() {
+            const q = quizQuestions[currentQIndex];
+            get('current-score').textContent = score;
+            get('question-counter').textContent = currentQIndex+1;
+            get('question-text').textContent = q.question;
+            get('quiz-progress').style.width = `${((currentQIndex)/quizQuestions.length)*100}%`;
+            const area = get('answers-area'); area.innerHTML=''; get('feedback-msg').textContent=''; hide('btn-next-question');
+            ['A','B','C','D'].forEach(opt => {
+                const btn = document.createElement('button'); btn.className='option-btn';
+                btn.innerHTML=`<b>${opt}.</b> ${q.options[opt]}`;
+                btn.onclick=()=>checkAnswer(opt,q.correct,btn);
+                area.appendChild(btn);
+            });
+        }
+        function checkAnswer(sel, corr, btn) {
+            document.querySelectorAll('.option-btn').forEach(b=>{ b.classList.add('disabled'); b.onclick=null; if(b.innerHTML.includes(`<b>${corr}.</b>`)) b.classList.add('correct'); });
+            if(sel===corr) { score+=10; get('current-score').textContent=score; get('feedback-msg').textContent="Chính xác! +10 điểm"; get('feedback-msg').style.color="var(--success)"; }
+            else { btn.classList.add('wrong'); get('feedback-msg').textContent="Sai rồi!"; get('feedback-msg').style.color="var(--error)"; }
+            show('btn-next-question');
+        }
+        window.nextQuestion = async () => {
+            currentQIndex++;
+            if(currentQIndex<quizQuestions.length) renderQuestion();
+            else {
+                showToast(`Kết thúc! Điểm: ${score}`);
+                if(currentUser) await addDoc(collection(db, PUBLIC_DATA_PATH, "scores"), { email: currentUser.email, score: score, timestamp: new Date() });
+                window.navigate('leaderboard');
+            }
+        }
+        async function fetchLeaderboard() {
+            toggleLoading(true);
+            const tbody = get('leaderboard-body'); tbody.innerHTML='';
+            
+            // FIX: Show reset button if teacher
+            if (currentRole === 'teacher') {
+                show('btn-reset-leaderboard');
+            } else {
+                hide('btn-reset-leaderboard');
+            }
+
+            try {
+                // 1. Fetch valid assignments to filter scores
+                const assignmentsSnap = await getDocs(collection(db, PUBLIC_DATA_PATH, "writing_assignments"));
+                const validAssignmentIds = new Set();
+                assignmentsSnap.forEach(doc => validAssignmentIds.add(doc.id));
+
+                const quizSnap = await getDocs(collection(db, PUBLIC_DATA_PATH, "scores"));
+                const writingSnap = await getDocs(query(collection(db, PUBLIC_DATA_PATH, "writing_submissions"), where("status", "==", "graded")));
+                
+                const scoreMap = {};
+                
+                // Quiz scores (keep existing logic)
+                quizSnap.forEach(doc => { 
+                    const d = doc.data(); 
+                    const email = d.email; 
+                    if(!scoreMap[email]) scoreMap[email] = 0; 
+                    scoreMap[email] += d.score; 
+                });
+                
+                // Writing scores (Filter by valid assignment IDs)
+                writingSnap.forEach(doc => { 
+                    const d = doc.data(); 
+                    // ONLY count if assignment still exists
+                    if (validAssignmentIds.has(d.assignmentId)) {
+                        const email = d.studentEmail; 
+                        if(!scoreMap[email]) scoreMap[email] = 0; 
+                        scoreMap[email] += (d.score || 0); 
+                    }
+                });
+
+                const leaderboard = Object.keys(scoreMap).map(email => ({ email: email, totalScore: scoreMap[email] })).sort((a, b) => b.totalScore - a.totalScore).slice(0, 10);
+                let r=1; 
+                leaderboard.forEach(item => {
+                    let cls = r===1?'rank-1':r===2?'rank-2':r===3?'rank-3':'';
+                    tbody.innerHTML+=`<tr><td class="${cls}">#${r++}</td><td>${item.email.split('@')[0]}</td><td style="font-weight:bold">${item.totalScore}</td></tr>`;
+                });
+            } catch(e){ console.error(e); showToast("Lỗi tải bảng xếp hạng"); }
+            toggleLoading(false);
+        }
+        
+        // New Reset Leaderboard Function
+        window.resetLeaderboard = async () => {
+            if(!confirm("CẢNH BÁO: Hành động này sẽ xóa toàn bộ lịch sử điểm số của Mini Game (Quiz). Điểm bài tập Viết sẽ được giữ nguyên. Bạn có chắc chắn?")) return;
+            toggleLoading(true);
+            try {
+                const q = query(collection(db, PUBLIC_DATA_PATH, "scores"));
+                const snapshot = await getDocs(q);
+                const deletePromises = [];
+                snapshot.forEach((doc) => {
+                    deletePromises.push(deleteDoc(doc.ref));
+                });
+                await Promise.all(deletePromises);
+                showToast("Đã reset bảng xếp hạng Game!");
+                fetchLeaderboard();
+            } catch(e) { showToast("Lỗi xóa dữ liệu: " + e.message); }
+            toggleLoading(false);
+        }
+    </script>
+</body>
+</html>
