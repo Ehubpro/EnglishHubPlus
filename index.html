@@ -308,8 +308,8 @@
             <p style="margin-bottom: 20px; color: var(--text-light);">HUST Electrical Engineering</p>
             
             <div class="role-switch">
-                <button class="role-btn active" onclick="switchAuthRole('student')">Sinh viên</button>
-                <button class="role-btn" onclick="switchAuthRole('teacher')">Giáo viên</button>
+                <button class="role-btn active" onclick="switchAuthRole('student')" data-i18n="student_role">Sinh viên</button>
+                <button class="role-btn" onclick="switchAuthRole('teacher')" data-i18n="teacher_role">Giáo viên</button>
             </div>
 
             <form id="auth-form">
@@ -318,12 +318,12 @@
                     <input type="email" id="email" class="input-field" placeholder="mssv@sis.hust.edu.vn" required>
                 </div>
                 <div class="input-group">
-                    <label>Mật khẩu</label>
+                    <label data-i18n="password_label">Mật khẩu</label>
                     <input type="password" id="password" class="input-field" placeholder="******" required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Đăng nhập</button>
-                <button type="button" id="btn-signup" class="btn btn-outline" style="width: 100%;">Đăng ký tài khoản mới</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" data-i18n="login_btn">Đăng nhập</button>
+                <button type="button" id="btn-signup" class="btn btn-outline" style="width: 100%;" data-i18n="signup_btn">Đăng ký tài khoản mới</button>
             </form>
         </div>
     </section>
@@ -337,6 +337,11 @@
                     <span>Electro Mind</span>
                 </div>
                 <div class="user-info">
+                    <!-- LANGUAGE TOGGLE BUTTON -->
+                    <button onclick="toggleLanguage()" class="btn btn-outline" style="padding: 5px 10px; border: 1px solid var(--border-color); margin-right: 5px;" title="Ngôn ngữ / Language">
+                        <i class="fa-solid fa-earth-americas"></i> <span id="lang-label">VI</span>
+                    </button>
+                    <!-- THEME TOGGLE BUTTON -->
                     <button onclick="toggleTheme()" class="btn btn-outline" style="padding: 5px 10px; border: 1px solid var(--border-color);" title="Giao diện Sáng/Tối">
                         <i id="theme-icon" class="fa-solid fa-moon"></i>
                     </button>
@@ -352,34 +357,34 @@
             <aside class="sidebar">
                 <div id="student-menu" class="hidden">
                     <div class="menu-item active" onclick="navigate('student-lessons')">
-                        <i class="fa-solid fa-book-open"></i> Trang chủ
+                        <i class="fa-solid fa-book-open"></i> <span data-i18n="menu_home">Trang chủ</span>
                     </div>
                     <div class="menu-item" onclick="navigate('student-quiz')">
-                        <i class="fa-solid fa-gamepad"></i> Luyện tập (Quiz)
+                        <i class="fa-solid fa-gamepad"></i> <span data-i18n="menu_quiz">Luyện tập (Quiz)</span>
                     </div>
                     <div class="menu-item" onclick="navigate('student-writing')">
-                        <i class="fa-solid fa-pen-nib"></i> Bài tập Viết
+                        <i class="fa-solid fa-pen-nib"></i> <span data-i18n="menu_writing">Bài tập Viết</span>
                     </div>
                     <div class="menu-item" onclick="navigate('leaderboard')">
-                        <i class="fa-solid fa-trophy"></i> Bảng xếp hạng
+                        <i class="fa-solid fa-trophy"></i> <span data-i18n="menu_leaderboard">Bảng xếp hạng</span>
                     </div>
                 </div>
 
                 <div id="teacher-menu" class="hidden">
                     <div class="menu-item active" onclick="navigate('teacher-create-lesson')">
-                        <i class="fa-solid fa-pen-to-square"></i> Đăng bài học
+                        <i class="fa-solid fa-pen-to-square"></i> <span data-i18n="menu_create_lesson">Đăng bài học</span>
                     </div>
                     <div class="menu-item" onclick="navigate('teacher-create-quiz')">
-                        <i class="fa-solid fa-circle-question"></i> Ngân hàng câu hỏi
+                        <i class="fa-solid fa-circle-question"></i> <span data-i18n="menu_quiz_bank">Ngân hàng câu hỏi</span>
                     </div>
                     <div class="menu-item" onclick="navigate('teacher-writing-manage')">
-                        <i class="fa-solid fa-clipboard-check"></i> Quản lý Writing
+                        <i class="fa-solid fa-clipboard-check"></i> <span data-i18n="menu_manage_writing">Quản lý Writing</span>
                     </div>
                     <div class="menu-item" onclick="navigate('student-lessons')">
-                        <i class="fa-solid fa-eye"></i> Quản lý bài đăng
+                        <i class="fa-solid fa-eye"></i> <span data-i18n="menu_manage_posts">Quản lý bài đăng</span>
                     </div>
                     <div class="menu-item" onclick="navigate('leaderboard')">
-                        <i class="fa-solid fa-trophy"></i> Bảng xếp hạng
+                        <i class="fa-solid fa-trophy"></i> <span data-i18n="menu_leaderboard">Bảng xếp hạng</span>
                     </div>
                 </div>
             </aside>
@@ -396,10 +401,10 @@
                         <div class="hero-left">
                             <div style="color: white; max-width: 600px; position: relative; z-index: 10;">
                                 <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: #fff;">Welcome to Electro Mind</h2>
-                                <p style="font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,0.95); margin-bottom: 15px;">
+                                <p style="font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,0.95); margin-bottom: 15px;" data-i18n="hero_desc_1">
                                     Welcome to our learning support platform designed specifically for students studying Electrical Engineering and Electronics.
                                 </p>
-                                <p style="font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.9);">
+                                <p style="font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.9);" data-i18n="hero_desc_2">
                                     This website provides clear, accessible learning materials and a wide range of practice exercises to help you strengthen your understanding of key concepts in the course. Whether you need concise notes, guided explanations, or topic-based practice questions, our platform is here to support your academic progress and make the learning process more effective and engaging.
                                 </p>
                             </div>
@@ -407,27 +412,27 @@
                         <div class="hero-right">
                             <div class="hero-card">
                                 <img src="https://cdn-icons-png.flaticon.com/512/3413/3413535.png" alt="Courses">
-                                <h3>Khóa học của tôi</h3>
-                                <p>Tiếp tục học tập</p>
-                                <button class="hero-btn" onclick="scrollToLessons()">Học ngay >></button>
+                                <h3 data-i18n="my_course">Khóa học của tôi</h3>
+                                <p data-i18n="continue_learning">Tiếp tục học tập</p>
+                                <button class="hero-btn" onclick="scrollToLessons()" data-i18n="learn_now_btn">Học ngay >></button>
                             </div>
                             <div class="hero-card">
                                 <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" alt="Quiz">
-                                <h3>Thử thách Quiz</h3>
-                                <p>Kiểm tra kiến thức</p>
-                                <button class="hero-btn hero-btn-cyan" onclick="navigate('student-quiz')">Luyện tập >></button>
+                                <h3 data-i18n="quiz_challenge">Thử thách Quiz</h3>
+                                <p data-i18n="test_knowledge">Kiểm tra kiến thức</p>
+                                <button class="hero-btn hero-btn-cyan" onclick="navigate('student-quiz')" data-i18n="practice_btn">Luyện tập >></button>
                             </div>
                         </div>
                     </div>
-                    <h2 class="section-title" id="lesson-anchor">Danh sách bài học</h2>
+                    <h2 class="section-title" id="lesson-anchor" data-i18n="lesson_list_title">Danh sách bài học</h2>
                     <div id="lesson-list" class="lesson-grid"></div>
                 </div>
 
                 <!-- LESSON DETAIL -->
                 <div id="view-lesson-detail" class="view-section hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <button onclick="navigate('student-lessons')" class="btn btn-outline">&larr; Quay lại</button>
-                        <button id="btn-mark-done" class="btn btn-outline" onclick="toggleLessonCompletion()"><i class="fa-regular fa-circle-check"></i> Đánh dấu đã học</button>
+                        <button onclick="navigate('student-lessons')" class="btn btn-outline"><span data-i18n="back_btn">&larr; Quay lại</span></button>
+                        <button id="btn-mark-done" class="btn btn-outline" onclick="toggleLessonCompletion()"><i class="fa-regular fa-circle-check"></i> <span data-i18n="mark_done">Đánh dấu đã học</span></button>
                     </div>
                     
                     <div class="card">
@@ -435,15 +440,15 @@
                         <div id="detail-image" style="width:100%; height:300px; background-size:cover; background-position:center; border-radius:8px; margin-bottom:20px; display:none;"></div>
                         <h1 id="detail-title" style="color: var(--primary-color); margin-bottom: 10px;">Unit Title</h1>
                         <div style="border-bottom: 1px solid var(--border-color); margin-bottom: 20px;"></div>
-                        <h3 style="margin-bottom: 10px;"><i class="fa-solid fa-language"></i> Vocabulary</h3>
+                        <h3 style="margin-bottom: 10px;"><i class="fa-solid fa-language"></i> <span data-i18n="vocab_title">Vocabulary</span></h3>
                         <div id="detail-vocab-container" style="margin-bottom: 20px;"></div>
-                        <h3 style="margin-bottom: 10px;"><i class="fa-solid fa-file-lines"></i> Content</h3>
+                        <h3 style="margin-bottom: 10px;"><i class="fa-solid fa-file-lines"></i> <span data-i18n="content_title">Content</span></h3>
                         <div id="detail-content" class="rich-editor" style="margin-bottom: 20px;"></div>
                         <div id="detail-video-container"></div>
                         
                         <!-- Mini Quiz Section (UPDATED: Dynamic List) -->
                         <div id="detail-mini-quiz" class="mini-quiz-box hidden">
-                            <h4 style="color: var(--primary-color); margin-bottom:20px;"><i class="fa-solid fa-puzzle-piece"></i> Quiz ôn tập</h4>
+                            <h4 style="color: var(--primary-color); margin-bottom:20px;"><i class="fa-solid fa-puzzle-piece"></i> <span data-i18n="quiz_review_title">Quiz ôn tập</span></h4>
                             <div id="mini-quiz-list-display"></div>
                         </div>
                     </div>
@@ -451,38 +456,38 @@
 
                 <!-- STUDENT: WRITING ASSIGNMENTS -->
                 <div id="view-student-writing" class="view-section hidden">
-                    <h2 class="section-title">Bài tập Viết (Writing)</h2>
+                    <h2 class="section-title" data-i18n="writing_list_title">Bài tập Viết (Writing)</h2>
                     <div id="student-writing-list"></div>
                 </div>
 
                 <!-- TEACHER: WRITING MANAGEMENT -->
                 <div id="view-teacher-writing-manage" class="view-section hidden">
-                    <h2 class="section-title">Quản lý Writing</h2>
+                    <h2 class="section-title" data-i18n="writing_manage_title">Quản lý Writing</h2>
                     
                     <!-- Create Assignment -->
                     <div class="card">
-                        <h3 id="writing-form-title"><i class="fa-solid fa-plus-circle"></i> Tạo đề bài mới</h3>
+                        <h3 id="writing-form-title"><i class="fa-solid fa-plus-circle"></i> <span data-i18n="create_assignment_title">Tạo đề bài mới</span></h3>
                         <form id="create-writing-form" style="margin-top:15px;">
                             <div class="input-group">
-                                <label>Tiêu đề bài tập</label>
-                                <input type="text" id="writing-title" class="input-field" placeholder="VD: Essay Unit 1" required>
+                                <label data-i18n="assignment_title_label">Tiêu đề bài tập</label>
+                                <input type="text" id="writing-title" class="input-field" placeholder="VD: Essay Unit 1" data-i18n-placeholder="assignment_title_ph" required>
                             </div>
                             <div class="input-group">
-                                <label>Yêu cầu đề bài (Prompt)</label>
-                                <textarea id="writing-desc" class="input-field" rows="3" placeholder="Mô tả yêu cầu..." required></textarea>
+                                <label data-i18n="prompt_label">Yêu cầu đề bài (Prompt)</label>
+                                <textarea id="writing-desc" class="input-field" rows="3" placeholder="Mô tả yêu cầu..." data-i18n-placeholder="prompt_ph" required></textarea>
                             </div>
                             <div style="display:flex; gap:10px;">
-                                <button type="submit" id="btn-submit-writing" class="btn btn-primary">Giao bài</button>
-                                <button type="button" id="btn-cancel-writing" class="btn btn-outline hidden" onclick="cancelEditAssignment()">Hủy</button>
+                                <button type="submit" id="btn-submit-writing" class="btn btn-primary" data-i18n="assign_btn">Giao bài</button>
+                                <button type="button" id="btn-cancel-writing" class="btn btn-outline hidden" onclick="cancelEditAssignment()" data-i18n="cancel_btn">Hủy</button>
                             </div>
                         </form>
                     </div>
 
-                    <h3 style="margin: 30px 0 15px; color: var(--warning);"><i class="fa-solid fa-hourglass-half"></i> Overview (Việc cần làm)</h3>
+                    <h3 style="margin: 30px 0 15px; color: var(--warning);"><i class="fa-solid fa-hourglass-half"></i> <span data-i18n="overview_title">Overview (Việc cần làm)</span></h3>
                     <div id="teacher-pending-list" style="margin-bottom: 30px;"></div>
 
                     <!-- NEW: ASSIGNMENT LIST -->
-                    <h3 style="margin: 30px 0 15px; color: var(--primary-color);"><i class="fa-solid fa-folder-open"></i> Danh sách đề bài đã ra</h3>
+                    <h3 style="margin: 30px 0 15px; color: var(--primary-color);"><i class="fa-solid fa-folder-open"></i> <span data-i18n="assignment_list_title">Danh sách đề bài đã ra</span></h3>
                     <div id="teacher-assignments-list">
                         <!-- List of assignments injected here -->
                     </div>
@@ -490,7 +495,7 @@
 
                 <!-- NEW: TEACHER ASSIGNMENT DETAIL VIEW -->
                 <div id="view-teacher-assignment-detail" class="view-section hidden">
-                    <button onclick="navigate('teacher-writing-manage')" class="btn btn-outline" style="margin-bottom: 20px;">&larr; Quay lại danh sách</button>
+                    <button onclick="navigate('teacher-writing-manage')" class="btn btn-outline" style="margin-bottom: 20px;"><span data-i18n="back_list_btn">&larr; Quay lại danh sách</span></button>
                     <h2 id="wad-title" class="section-title">Assignment Title</h2>
                     <div class="card">
                         <p id="wad-desc" style="color: var(--text-light); margin-bottom: 20px; font-style: italic; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;"></p>
@@ -498,13 +503,13 @@
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                             <!-- Pending Column -->
                             <div>
-                                <h4 style="color: var(--warning); margin-bottom: 15px;"><i class="fa-solid fa-clock"></i> Chờ chấm</h4>
+                                <h4 style="color: var(--warning); margin-bottom: 15px;"><i class="fa-solid fa-clock"></i> <span data-i18n="waiting_grade_title">Chờ chấm</span></h4>
                                 <div id="wad-pending-list"></div>
                             </div>
                             
                             <!-- Graded Column -->
                             <div>
-                                <h4 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> Đã chấm</h4>
+                                <h4 style="color: var(--success); margin-bottom: 15px;"><i class="fa-solid fa-check-circle"></i> <span data-i18n="graded_title">Đã chấm</span></h4>
                                 <div id="wad-graded-list"></div>
                             </div>
                         </div>
@@ -513,50 +518,50 @@
 
                 <!-- TEACHER: GRADING INTERFACE -->
                 <div id="view-teacher-grading-detail" class="view-section hidden">
-                    <button onclick="navigate('teacher-writing-manage')" class="btn btn-outline" style="margin-bottom: 20px;">&larr; Quay lại danh sách</button>
-                    <h2 class="section-title">Chấm bài</h2>
+                    <button onclick="navigate('teacher-writing-manage')" class="btn btn-outline" style="margin-bottom: 20px;"><span data-i18n="back_list_btn">&larr; Quay lại danh sách</span></button>
+                    <h2 class="section-title" data-i18n="grading_title">Chấm bài</h2>
                     <div class="card">
                         <div style="background: var(--menu-hover); padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color);">
                             <h4 id="grade-assignment-title" style="margin-bottom: 5px;">Assignment Title</h4>
                             <p id="grade-student-email" style="color: var(--text-light); font-style: italic;">Student Email</p>
                         </div>
                         
-                        <h4>Bài làm của sinh viên:</h4>
+                        <h4 data-i18n="student_work_title">Bài làm của sinh viên:</h4>
                         <div id="grade-student-content" style="background: var(--bg-color); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px; white-space: pre-wrap; min-height: 100px;"></div>
                         
                         <div id="grade-student-image-container" style="margin-bottom: 20px; display: none;">
-                             <p><strong>Ảnh minh họa:</strong></p>
+                             <p><strong data-i18n="illust_image">Ảnh minh họa:</strong></p>
                              <img id="grade-student-image" src="" style="max-width: 100%; border-radius: 8px; border: 1px solid #eee;">
                         </div>
 
                         <form id="grading-form">
                             <div class="input-group">
-                                <label>Điểm số (0-100)</label>
+                                <label data-i18n="score_label">Điểm số (0-100)</label>
                                 <input type="number" id="grade-score" class="input-field" min="0" max="100" required>
                             </div>
                             <div class="input-group">
-                                <label>Nhận xét (Feedback)</label>
-                                <textarea id="grade-feedback" class="input-field" rows="3" placeholder="Nhận xét chi tiết..." required></textarea>
+                                <label data-i18n="feedback_label">Nhận xét (Feedback)</label>
+                                <textarea id="grade-feedback" class="input-field" rows="3" placeholder="Nhận xét chi tiết..." data-i18n-placeholder="feedback_ph" required></textarea>
                             </div>
                             <input type="hidden" id="grade-submission-id">
-                            <button type="submit" class="btn btn-primary">Hoàn tất chấm</button>
+                            <button type="submit" class="btn btn-primary" data-i18n="submit_grade_btn">Hoàn tất chấm</button>
                         </form>
                     </div>
                 </div>
 
                 <!-- QUIZ GAME -->
                 <div id="view-student-quiz" class="view-section hidden">
-                    <h2 class="section-title">Mini Game: Thử thách kiến thức</h2>
+                    <h2 class="section-title" data-i18n="game_title">Mini Game: Thử thách kiến thức</h2>
                     <div id="quiz-start-screen" class="card text-center" style="text-align: center;">
                         <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" width="100" style="margin-bottom: 20px;">
-                        <h3>Sẵn sàng chưa?</h3>
-                        <button onclick="startQuiz()" class="btn btn-primary">Bắt đầu ngay</button>
+                        <h3 data-i18n="ready_title">Sẵn sàng chưa?</h3>
+                        <button onclick="startQuiz()" class="btn btn-primary" data-i18n="start_game_btn">Bắt đầu ngay</button>
                     </div>
                     <div id="quiz-play-screen" class="hidden quiz-container">
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                <span style="font-weight: bold;">Điểm: <span id="current-score" style="color: var(--primary-color);">0</span></span>
-                                <span>Câu hỏi: <span id="question-counter">1</span>/10</span>
+                                <span style="font-weight: bold;"><span data-i18n="score_label">Điểm</span>: <span id="current-score" style="color: var(--primary-color);">0</span></span>
+                                <span><span data-i18n="question_label">Câu hỏi</span>: <span id="question-counter">1</span>/10</span>
                             </div>
                             <div class="progress-bar" style="width: 100%; height: 6px; background: var(--border-color); border-radius: 3px; margin-bottom: 20px;">
                                 <div id="quiz-progress" style="width: 0%; height: 100%; background: var(--success); border-radius: 3px;"></div>
@@ -564,7 +569,7 @@
                             <div id="question-text" class="question-box"></div>
                             <div id="answers-area" class="options-grid"></div>
                             <div id="feedback-msg" style="margin-top: 20px; font-weight: bold; height: 24px;"></div>
-                            <button id="btn-next-question" onclick="nextQuestion()" class="btn btn-primary hidden" style="margin-top: 20px;">Câu tiếp theo &rarr;</button>
+                            <button id="btn-next-question" onclick="nextQuestion()" class="btn btn-primary hidden" style="margin-top: 20px;" data-i18n="next_question_btn">Câu tiếp theo &rarr;</button>
                         </div>
                     </div>
                 </div>
@@ -572,13 +577,13 @@
                 <!-- LEADERBOARD -->
                 <div id="view-leaderboard" class="view-section hidden">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <h2 class="section-title" style="margin-bottom:0">Bảng vàng thành tích</h2>
-                        <button id="btn-reset-leaderboard" class="btn btn-danger hidden" onclick="resetLeaderboard()"><i class="fa-solid fa-rotate-right"></i> Reset điểm Game</button>
+                        <h2 class="section-title" style="margin-bottom:0" data-i18n="leaderboard_title">Bảng vàng thành tích</h2>
+                        <button id="btn-reset-leaderboard" class="btn btn-danger hidden" onclick="resetLeaderboard()"><i class="fa-solid fa-rotate-right"></i> <span data-i18n="reset_leaderboard">Reset điểm Game</span></button>
                     </div>
                     <div class="card">
                         <table class="leaderboard-table">
                             <thead>
-                                <tr><th>Hạng</th><th>Sinh viên</th><th>Tổng điểm</th></tr>
+                                <tr><th data-i18n="rank_th">Hạng</th><th data-i18n="student_th">Sinh viên</th><th data-i18n="score_th">Tổng điểm</th></tr>
                             </thead>
                             <tbody id="leaderboard-body"></tbody>
                         </table>
@@ -587,36 +592,36 @@
 
                 <!-- TEACHER: CREATE/EDIT LESSON (UPDATED: Multi Quiz) -->
                 <div id="view-teacher-create-lesson" class="view-section hidden">
-                    <h2 class="section-title" id="form-title">Soạn bài giảng mới</h2>
+                    <h2 class="section-title" id="form-title" data-i18n="create_lesson_title">Soạn bài giảng mới</h2>
                     <div class="card">
                         <form id="create-lesson-form">
                             <div class="input-group">
-                                <label>Tiêu đề bài học (Unit Name)</label>
-                                <input type="text" id="lesson-title" class="input-field" placeholder="VD: Unit 1: Electrons" required>
+                                <label data-i18n="unit_name_label">Tiêu đề bài học (Unit Name)</label>
+                                <input type="text" id="lesson-title" class="input-field" placeholder="VD: Unit 1: Electrons" data-i18n-placeholder="unit_name_ph" required>
                             </div>
                             <div class="input-group">
-                                <label>Mô tả ngắn</label>
-                                <input type="text" id="lesson-desc" class="input-field" placeholder="Giới thiệu ngắn gọn..." required>
+                                <label data-i18n="desc_label">Mô tả ngắn</label>
+                                <input type="text" id="lesson-desc" class="input-field" placeholder="Giới thiệu ngắn gọn..." data-i18n-placeholder="desc_ph" required>
                             </div>
                             <div class="input-group">
-                                <label>Hình ảnh minh họa (URL)</label>
+                                <label data-i18n="img_label">Hình ảnh minh họa (URL)</label>
                                 <input type="url" id="lesson-image" class="input-field" placeholder="https://example.com/image.jpg">
                             </div>
                             
                             <div class="input-group">
-                                <label>Nội dung chi tiết (Essay/Theory)</label>
+                                <label data-i18n="content_label">Nội dung chi tiết (Essay/Theory)</label>
                                 <div style="border: 1px solid var(--border-color); border-radius: 8px; background: var(--input-bg);">
                                     <div id="lesson-content-editor" class="input-field rich-editor" contenteditable="true" style="border:none; min-height: 200px;"></div>
                                 </div>
-                                <small style="color: var(--text-light); font-style: italic;">Mẹo: Bạn có thể dán hình ảnh (Ctrl+V) trực tiếp vào khung soạn thảo trên.</small>
+                                <small style="color: var(--text-light); font-style: italic;" data-i18n="editor_hint">Mẹo: Bạn có thể dán hình ảnh (Ctrl+V) trực tiếp vào khung soạn thảo trên.</small>
                             </div>
                             
                             <div class="input-group">
-                                <label>Từ vựng (Vocabulary)</label>
+                                <label data-i18n="vocab_label">Từ vựng (Vocabulary)</label>
                                 <div style="background: var(--menu-hover); padding: 15px; border: 1px solid var(--border-color); border-radius: 8px;">
                                     <div id="vocab-input-container"></div>
                                     <button type="button" class="btn btn-outline btn-sm" onclick="addVocabRow()">
-                                        <i class="fa-solid fa-plus"></i> Thêm từ vựng
+                                        <i class="fa-solid fa-plus"></i> <span data-i18n="add_vocab_btn">Thêm từ vựng</span>
                                     </button>
                                 </div>
                             </div>
@@ -624,24 +629,24 @@
                             <div class="input-group">
                                 <label>Link Video (Youtube)</label>
                                 <input type="text" id="lesson-video" class="input-field" placeholder="https://www.youtube.com/watch?v=...">
-                                <small style="color: var(--text-light);">Hệ thống sẽ tự động chuyển đổi link video.</small>
+                                <small style="color: var(--text-light);" data-i18n="video_hint">Hệ thống sẽ tự động chuyển đổi link video.</small>
                             </div>
 
                             <!-- UPDATED: MULTI MINI QUIZ -->
                             <div class="input-group" style="margin-top: 20px; padding-top: 20px; border-top: 2px dashed var(--border-color);">
-                                <label style="color: var(--primary-color);"><i class="fa-solid fa-puzzle-piece"></i> Mini Quiz (Cuối bài học)</label>
+                                <label style="color: var(--primary-color);"><i class="fa-solid fa-puzzle-piece"></i> <span data-i18n="mini_quiz_label">Mini Quiz (Cuối bài học)</span></label>
                                 <div id="lesson-quiz-container" style="margin-bottom: 15px;">
                                     <!-- Dynamic quiz rows go here -->
                                 </div>
                                 <button type="button" class="btn btn-outline btn-sm" onclick="addLessonQuizRow()">
-                                    <i class="fa-solid fa-plus"></i> Thêm câu hỏi
+                                    <i class="fa-solid fa-plus"></i> <span data-i18n="add_question_btn">Thêm câu hỏi</span>
                                 </button>
-                                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 5px;">Lưu ý: Các câu hỏi này sẽ được <strong>tự động import</strong> vào Ngân hàng câu hỏi chung.</p>
+                                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 5px;" data-i18n="quiz_import_hint">Lưu ý: Các câu hỏi này sẽ được <strong>tự động import</strong> vào Ngân hàng câu hỏi chung.</p>
                             </div>
 
                             <div style="margin-top: 20px;">
-                                <button type="submit" id="form-submit-btn" class="btn btn-primary">Đăng bài</button>
-                                <button type="button" id="btn-cancel-edit" class="btn btn-outline hidden" onclick="cancelEdit()">Hủy chỉnh sửa</button>
+                                <button type="submit" id="form-submit-btn" class="btn btn-primary" data-i18n="post_btn">Đăng bài</button>
+                                <button type="button" id="btn-cancel-edit" class="btn btn-outline hidden" onclick="cancelEdit()" data-i18n="cancel_edit_btn">Hủy chỉnh sửa</button>
                             </div>
                         </form>
                     </div>
@@ -649,31 +654,31 @@
 
                 <!-- TEACHER: MANAGE QUIZ -->
                 <div id="view-teacher-create-quiz" class="view-section hidden">
-                    <h2 class="section-title">Ngân hàng câu hỏi</h2>
+                    <h2 class="section-title" data-i18n="quiz_bank_title">Ngân hàng câu hỏi</h2>
                     <div class="card">
-                        <h3 id="quiz-form-title"><i class="fa-solid fa-plus-circle"></i> Thêm câu hỏi mới</h3>
+                        <h3 id="quiz-form-title"><i class="fa-solid fa-plus-circle"></i> <span data-i18n="add_quiz_title">Thêm câu hỏi mới</span></h3>
                         <form id="create-quiz-form" style="margin-top: 15px;">
                             <div class="input-group">
-                                <label>Câu hỏi</label>
+                                <label data-i18n="question_label">Câu hỏi</label>
                                 <input type="text" id="quiz-question" class="input-field" required>
                             </div>
                             <div class="options-grid" style="margin-bottom: 15px;">
-                                <div class="input-group"><label>Đáp án A</label><input type="text" id="opt-a" class="input-field" required></div>
-                                <div class="input-group"><label>Đáp án B</label><input type="text" id="opt-b" class="input-field" required></div>
-                                <div class="input-group"><label>Đáp án C</label><input type="text" id="opt-c" class="input-field" required></div>
-                                <div class="input-group"><label>Đáp án D</label><input type="text" id="opt-d" class="input-field" required></div>
+                                <div class="input-group"><label data-i18n="opt_a">Đáp án A</label><input type="text" id="opt-a" class="input-field" required></div>
+                                <div class="input-group"><label data-i18n="opt_b">Đáp án B</label><input type="text" id="opt-b" class="input-field" required></div>
+                                <div class="input-group"><label data-i18n="opt_c">Đáp án C</label><input type="text" id="opt-c" class="input-field" required></div>
+                                <div class="input-group"><label data-i18n="opt_d">Đáp án D</label><input type="text" id="opt-d" class="input-field" required></div>
                             </div>
                             <div class="input-group">
-                                <label>Đáp án đúng</label>
+                                <label data-i18n="correct_opt">Đáp án đúng</label>
                                 <select id="correct-opt" class="input-field">
                                     <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
                                 </select>
                             </div>
-                            <button type="submit" id="btn-submit-quiz" class="btn btn-primary">Lưu câu hỏi</button>
-                            <button type="button" id="btn-cancel-quiz" class="btn btn-outline hidden" onclick="resetQuizForm()">Hủy</button>
+                            <button type="submit" id="btn-submit-quiz" class="btn btn-primary" data-i18n="save_question_btn">Lưu câu hỏi</button>
+                            <button type="button" id="btn-cancel-quiz" class="btn btn-outline hidden" onclick="resetQuizForm()" data-i18n="cancel_btn">Hủy</button>
                         </form>
                     </div>
-                    <h3 style="margin: 30px 0 15px;">Danh sách câu hỏi hiện có</h3>
+                    <h3 style="margin: 30px 0 15px;" data-i18n="quiz_list_title">Danh sách câu hỏi hiện có</h3>
                     <div id="quiz-bank-list"></div>
                 </div>
 
@@ -705,6 +710,306 @@
         const PUBLIC_DATA_PATH = `artifacts/${appId}/public/data`;
         function getUserProfilePath(userId) { return `artifacts/${appId}/users/${userId}/profile`; }
         function getUserProgressPath(userId) { return `artifacts/${appId}/users/${userId}/progress`; }
+
+        // --- I18N CONFIGURATION ---
+        const translations = {
+            vi: {
+                student_role: "Sinh viên",
+                teacher_role: "Giáo viên",
+                password_label: "Mật khẩu",
+                login_btn: "Đăng nhập",
+                signup_btn: "Đăng ký tài khoản mới",
+                menu_home: "Trang chủ",
+                menu_quiz: "Luyện tập (Quiz)",
+                menu_writing: "Bài tập Viết",
+                menu_leaderboard: "Bảng xếp hạng",
+                menu_create_lesson: "Đăng bài học",
+                menu_quiz_bank: "Ngân hàng câu hỏi",
+                menu_manage_writing: "Quản lý Writing",
+                menu_manage_posts: "Quản lý bài đăng",
+                hero_desc_1: "Chào mừng bạn đến với nền tảng hỗ trợ học tập dành riêng cho sinh viên Kỹ thuật Điện & Điện tử.",
+                hero_desc_2: "Trang web cung cấp tài liệu học tập dễ hiểu và các bài tập thực hành đa dạng giúp bạn củng cố kiến thức. Dù bạn cần ghi chú ngắn gọn, giải thích chi tiết hay câu hỏi ôn tập, chúng tôi luôn sẵn sàng hỗ trợ bạn.",
+                my_course: "Khóa học của tôi",
+                continue_learning: "Tiếp tục học tập",
+                learn_now_btn: "Học ngay >>",
+                quiz_challenge: "Thử thách Quiz",
+                test_knowledge: "Kiểm tra kiến thức",
+                practice_btn: "Luyện tập >>",
+                lesson_list_title: "Danh sách bài học",
+                back_btn: "← Quay lại",
+                mark_done: "Đánh dấu đã học",
+                mark_done_success: "Đã hoàn thành",
+                vocab_title: "Từ vựng (Vocabulary)",
+                content_title: "Nội dung (Content)",
+                quiz_review_title: "Quiz ôn tập",
+                writing_list_title: "Bài tập Viết (Writing)",
+                writing_manage_title: "Quản lý Writing",
+                create_assignment_title: "Tạo đề bài mới",
+                assignment_title_label: "Tiêu đề bài tập",
+                assignment_title_ph: "VD: Essay Unit 1",
+                prompt_label: "Yêu cầu đề bài (Prompt)",
+                prompt_ph: "Mô tả yêu cầu...",
+                assign_btn: "Giao bài",
+                cancel_btn: "Hủy",
+                overview_title: "Overview (Việc cần làm)",
+                assignment_list_title: "Danh sách đề bài đã ra",
+                back_list_btn: "← Quay lại danh sách",
+                waiting_grade_title: "Chờ chấm",
+                graded_title: "Đã chấm",
+                grading_title: "Chấm bài",
+                student_work_title: "Bài làm của sinh viên:",
+                illust_image: "Ảnh minh họa:",
+                score_label: "Điểm số",
+                feedback_label: "Nhận xét (Feedback)",
+                feedback_ph: "Nhận xét chi tiết...",
+                submit_grade_btn: "Hoàn tất chấm",
+                game_title: "Mini Game: Thử thách kiến thức",
+                ready_title: "Sẵn sàng chưa?",
+                start_game_btn: "Bắt đầu ngay",
+                question_label: "Câu hỏi",
+                next_question_btn: "Câu tiếp theo →",
+                leaderboard_title: "Bảng vàng thành tích",
+                reset_leaderboard: "Reset điểm Game",
+                rank_th: "Hạng",
+                student_th: "Sinh viên",
+                score_th: "Tổng điểm",
+                create_lesson_title: "Soạn bài giảng mới",
+                edit_lesson_title: "Chỉnh sửa bài giảng",
+                unit_name_label: "Tiêu đề bài học (Unit Name)",
+                unit_name_ph: "VD: Unit 1: Electrons",
+                desc_label: "Mô tả ngắn",
+                desc_ph: "Giới thiệu ngắn gọn...",
+                img_label: "Hình ảnh minh họa (URL)",
+                content_label: "Nội dung chi tiết (Essay/Theory)",
+                editor_hint: "Mẹo: Bạn có thể dán hình ảnh (Ctrl+V) trực tiếp vào khung soạn thảo trên.",
+                vocab_label: "Từ vựng (Vocabulary)",
+                add_vocab_btn: "Thêm từ vựng",
+                video_hint: "Hệ thống sẽ tự động chuyển đổi link video.",
+                mini_quiz_label: "Mini Quiz (Cuối bài học)",
+                add_question_btn: "Thêm câu hỏi",
+                quiz_import_hint: "Lưu ý: Các câu hỏi này sẽ được tự động import vào Ngân hàng câu hỏi chung.",
+                post_btn: "Đăng bài",
+                update_btn: "Cập nhật",
+                cancel_edit_btn: "Hủy chỉnh sửa",
+                quiz_bank_title: "Ngân hàng câu hỏi",
+                add_quiz_title: "Thêm câu hỏi mới",
+                edit_quiz_title: "Chỉnh sửa câu hỏi",
+                save_question_btn: "Lưu câu hỏi",
+                quiz_list_title: "Danh sách câu hỏi hiện có",
+                opt_a: "Đáp án A",
+                opt_b: "Đáp án B",
+                opt_c: "Đáp án C",
+                opt_d: "Đáp án D",
+                correct_opt: "Đáp án đúng",
+                student_badge: "Sinh viên",
+                teacher_badge: "Giáo viên",
+                toast_login_success: "Đăng nhập thành công!",
+                toast_login_fail: "Lỗi đăng nhập: ",
+                toast_signup_success: "Đăng ký thành công!",
+                toast_assigned: "Đã giao bài tập mới!",
+                toast_graded: "Đã chấm điểm xong!",
+                toast_posted: "Đã đăng bài học mới!",
+                toast_updated: "Đã cập nhật bài giảng!",
+                toast_deleted: "Đã xóa bài giảng.",
+                toast_auto_import: "Đã tự động thêm câu hỏi vào Ngân hàng!",
+                toast_game_over: "Kết thúc! Điểm: ",
+                toast_reset_game: "Đã reset bảng xếp hạng Game!",
+                confirm_delete_lesson: "Bạn có chắc chắn muốn xóa bài giảng này?",
+                confirm_delete_quiz: "Bạn chắc chắn muốn xóa câu hỏi này?",
+                confirm_reset_game: "CẢNH BÁO: Hành động này sẽ xóa toàn bộ lịch sử điểm số của Mini Game (Quiz). Điểm bài tập Viết sẽ được giữ nguyên. Bạn có chắc chắn?",
+                btn_edit: "Sửa",
+                btn_delete: "Xóa",
+                btn_view_detail: "Xem chi tiết →",
+                text_created: "Ngày tạo: ",
+                text_no_lesson: "Chưa có bài học nào.",
+                text_no_quiz: "Ngân hàng câu hỏi trống.",
+                text_no_assign: "Chưa có đề bài nào.",
+                text_correct: "Chính xác!",
+                text_wrong: "Sai rồi!",
+            },
+            en: {
+                student_role: "Student",
+                teacher_role: "Teacher",
+                password_label: "Password",
+                login_btn: "Login",
+                signup_btn: "Register New Account",
+                menu_home: "Home",
+                menu_quiz: "Practice Quiz",
+                menu_writing: "Writing Assignments",
+                menu_leaderboard: "Leaderboard",
+                menu_create_lesson: "Post Lesson",
+                menu_quiz_bank: "Quiz Bank",
+                menu_manage_writing: "Manage Writing",
+                menu_manage_posts: "Manage Posts",
+                hero_desc_1: "Welcome to the learning support platform designed specifically for Electrical & Electronics Engineering students.",
+                hero_desc_2: "This website provides clear, accessible learning materials and a wide range of practice exercises to help you strengthen your understanding of key concepts. Whether you need concise notes, guided explanations, or topic-based practice questions, we are here to support you.",
+                my_course: "My Courses",
+                continue_learning: "Continue Learning",
+                learn_now_btn: "Learn Now >>",
+                quiz_challenge: "Quiz Challenge",
+                test_knowledge: "Test Knowledge",
+                practice_btn: "Practice >>",
+                lesson_list_title: "Lesson List",
+                back_btn: "← Back",
+                mark_done: "Mark as Done",
+                mark_done_success: "Completed",
+                vocab_title: "Vocabulary",
+                content_title: "Content",
+                quiz_review_title: "Review Quiz",
+                writing_list_title: "Writing Assignments",
+                writing_manage_title: "Manage Writing",
+                create_assignment_title: "Create New Assignment",
+                assignment_title_label: "Assignment Title",
+                assignment_title_ph: "Ex: Essay Unit 1",
+                prompt_label: "Prompt Requirement",
+                prompt_ph: "Describe requirements...",
+                assign_btn: "Assign",
+                cancel_btn: "Cancel",
+                overview_title: "Overview (To-Do)",
+                assignment_list_title: "Assigned List",
+                back_list_btn: "← Back to List",
+                waiting_grade_title: "Pending",
+                graded_title: "Graded",
+                grading_title: "Grading",
+                student_work_title: "Student Submission:",
+                illust_image: "Illustration:",
+                score_label: "Score",
+                feedback_label: "Feedback",
+                feedback_ph: "Detailed feedback...",
+                submit_grade_btn: "Finish Grading",
+                game_title: "Mini Game: Knowledge Challenge",
+                ready_title: "Are you ready?",
+                start_game_btn: "Start Now",
+                question_label: "Question",
+                next_question_btn: "Next Question →",
+                leaderboard_title: "Leaderboard",
+                reset_leaderboard: "Reset Game Scores",
+                rank_th: "Rank",
+                student_th: "Student",
+                score_th: "Total Score",
+                create_lesson_title: "Create New Lesson",
+                edit_lesson_title: "Edit Lesson",
+                unit_name_label: "Unit Name",
+                unit_name_ph: "Ex: Unit 1: Electrons",
+                desc_label: "Short Description",
+                desc_ph: "Brief introduction...",
+                img_label: "Image URL",
+                content_label: "Detailed Content (Essay/Theory)",
+                editor_hint: "Tip: You can paste images (Ctrl+V) directly into the editor.",
+                vocab_label: "Vocabulary",
+                add_vocab_btn: "Add Vocabulary",
+                video_hint: "System will automatically convert video link.",
+                mini_quiz_label: "Mini Quiz (End of Lesson)",
+                add_question_btn: "Add Question",
+                quiz_import_hint: "Note: These questions will be automatically imported to the Global Quiz Bank.",
+                post_btn: "Post Lesson",
+                update_btn: "Update",
+                cancel_edit_btn: "Cancel Edit",
+                quiz_bank_title: "Quiz Bank",
+                add_quiz_title: "Add New Question",
+                edit_quiz_title: "Edit Question",
+                save_question_btn: "Save Question",
+                quiz_list_title: "Existing Questions",
+                opt_a: "Option A",
+                opt_b: "Option B",
+                opt_c: "Option C",
+                opt_d: "Option D",
+                correct_opt: "Correct Option",
+                student_badge: "Student",
+                teacher_badge: "Teacher",
+                toast_login_success: "Login successful!",
+                toast_login_fail: "Login error: ",
+                toast_signup_success: "Registration successful!",
+                toast_assigned: "New assignment created!",
+                toast_graded: "Grading completed!",
+                toast_posted: "New lesson posted!",
+                toast_updated: "Lesson updated!",
+                toast_deleted: "Lesson deleted.",
+                toast_auto_import: "Questions auto-imported to Bank!",
+                toast_game_over: "Finished! Score: ",
+                toast_reset_game: "Game leaderboard reset!",
+                confirm_delete_lesson: "Are you sure you want to delete this lesson?",
+                confirm_delete_quiz: "Are you sure you want to delete this question?",
+                confirm_reset_game: "WARNING: This will delete all Mini Game (Quiz) scores. Writing scores will be kept. Are you sure?",
+                btn_edit: "Edit",
+                btn_delete: "Delete",
+                btn_view_detail: "View Detail →",
+                text_created: "Created: ",
+                text_no_lesson: "No lessons available.",
+                text_no_quiz: "Quiz bank is empty.",
+                text_no_assign: "No assignments yet.",
+                text_correct: "Correct!",
+                text_wrong: "Wrong!",
+            }
+        };
+
+        let currentLang = localStorage.getItem('electro_lang') || 'vi';
+
+        // Helper to get text based on current language
+        window.t = (key) => {
+            return translations[currentLang][key] || key;
+        };
+
+        // Function to toggle language
+        window.toggleLanguage = () => {
+            currentLang = currentLang === 'vi' ? 'en' : 'vi';
+            localStorage.setItem('electro_lang', currentLang);
+            updateLanguageUI();
+        };
+
+        // Function to update DOM text without resetting inputs
+        function updateLanguageUI() {
+            // Update Lang Button Label
+            document.getElementById('lang-label').textContent = currentLang.toUpperCase();
+            
+            // 1. Update text content for elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    // Check if element has child nodes (like icons) that we shouldn't overwrite blindly
+                    if (el.children.length > 0) {
+                        // If it has children (icons), we try to find the text node
+                        for (let node of el.childNodes) {
+                            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+                                node.textContent = " " + translations[currentLang][key]; // Add space for padding
+                                break;
+                            }
+                        }
+                        // Fallback: if no text node found, maybe it's complex, skip or handle specifically
+                        // For menu items <span> tag is used, so innerText works safely on the span
+                        if(el.tagName === 'SPAN') el.textContent = translations[currentLang][key];
+                    } else {
+                        el.textContent = translations[currentLang][key];
+                    }
+                }
+            });
+
+            // 2. Update placeholders for inputs with data-i18n-placeholder
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
+            });
+            
+            // 3. Update User Badge if visible
+            const badge = document.getElementById('user-badge');
+            if(badge.textContent === 'Student' || badge.textContent === 'Sinh viên') badge.textContent = t('student_badge');
+            if(badge.textContent === 'Teacher' || badge.textContent === 'Giáo viên') badge.textContent = t('teacher_badge');
+
+            // 4. Update dynamic button states if they exist
+            // (e.g., Lesson "Mark as Done" button)
+            const markBtn = document.getElementById('btn-mark-done');
+            if (markBtn) {
+                const isDone = markBtn.classList.contains('btn-success');
+                // Preserve icon
+                markBtn.innerHTML = isDone ? 
+                    `<i class="fa-solid fa-check-circle"></i> ${t('mark_done_success')}` : 
+                    `<i class="fa-regular fa-circle-check"></i> ${t('mark_done')}`;
+            }
+        }
+
+        // --- END I18N CONFIGURATION ---
 
         let currentUser = null;
         let currentRole = 'student';
@@ -749,8 +1054,9 @@
         initAuth();
 
         window.addEventListener('DOMContentLoaded', () => { 
+            updateLanguageUI(); // Initialize Language
             addVocabRow(); 
-            addLessonQuizRow(); // Add one default quiz row
+            addLessonQuizRow(); 
             updateThemeIcon(savedTheme); 
             
             const editor = get('lesson-content-editor');
@@ -792,12 +1098,14 @@
             const div = document.createElement('div');
             div.className = 'vocab-row-input';
             div.innerHTML = `
-                <input type="text" class="input-field vocab-word" value="${word}" placeholder="Word">
+                <input type="text" class="input-field vocab-word" value="${word}" placeholder="Word" data-i18n-placeholder="vocab_title">
                 <input type="text" class="input-field vocab-ipa" value="${ipa}" placeholder="IPA">
-                <input type="text" class="input-field vocab-mean" value="${mean}" placeholder="Meaning">
+                <input type="text" class="input-field vocab-mean" value="${mean}" placeholder="Meaning" data-i18n-placeholder="vocab_title">
                 <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
             `;
             container.appendChild(div);
+            // Apply translation immediately to new row
+            if(currentLang !== 'vi') updateLanguageUI();
         }
 
         // NEW: Dynamic Lesson Quiz Row
@@ -807,14 +1115,14 @@
             div.className = 'lesson-quiz-row';
             div.innerHTML = `
                 <button type="button" class="remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-times"></i></button>
-                <input type="text" class="input-field lq-question" placeholder="Câu hỏi..." value="${data.question || ''}" style="margin-bottom: 10px; font-weight: bold;">
+                <input type="text" class="input-field lq-question" placeholder="Câu hỏi..." data-i18n-placeholder="question_label" value="${data.question || ''}" style="margin-bottom: 10px; font-weight: bold;">
                 <div class="options-grid" style="margin-bottom: 10px;">
-                    <input type="text" class="input-field lq-opt-a" placeholder="Đáp án A" value="${data.options?.A || ''}">
-                    <input type="text" class="input-field lq-opt-b" placeholder="Đáp án B" value="${data.options?.B || ''}">
-                    <input type="text" class="input-field lq-opt-c" placeholder="Đáp án C" value="${data.options?.C || ''}">
-                    <input type="text" class="input-field lq-opt-d" placeholder="Đáp án D" value="${data.options?.D || ''}">
+                    <input type="text" class="input-field lq-opt-a" placeholder="Đáp án A" data-i18n-placeholder="opt_a" value="${data.options?.A || ''}">
+                    <input type="text" class="input-field lq-opt-b" placeholder="Đáp án B" data-i18n-placeholder="opt_b" value="${data.options?.B || ''}">
+                    <input type="text" class="input-field lq-opt-c" placeholder="Đáp án C" data-i18n-placeholder="opt_c" value="${data.options?.C || ''}">
+                    <input type="text" class="input-field lq-opt-d" placeholder="Đáp án D" data-i18n-placeholder="opt_d" value="${data.options?.D || ''}">
                 </div>
-                <label>Đáp án đúng:</label>
+                <label data-i18n="correct_opt">Đáp án đúng:</label>
                 <select class="input-field lq-correct" style="width: 100px;">
                     <option value="A" ${data.correct === 'A' ? 'selected' : ''}>A</option>
                     <option value="B" ${data.correct === 'B' ? 'selected' : ''}>B</option>
@@ -823,6 +1131,8 @@
                 </select>
             `;
             container.appendChild(div);
+            // Apply translation immediately
+            updateLanguageUI();
         }
 
         // --- NAVIGATION ---
@@ -851,7 +1161,7 @@
                 show('view-teacher-writing-manage'); 
                 fetchTeacherWritingDashboard(); 
                 fetchTeacherAssignments(); 
-                cancelEditAssignment(); // Reset form on entry
+                cancelEditAssignment(); 
             }
             else if (viewId === 'view-lesson-detail') { show('view-lesson-detail'); }
             
@@ -875,7 +1185,7 @@
         function setupDashboard(user, role) {
             hide('auth-screen'); show('app-dashboard');
             get('user-email').textContent = user.email || "User";
-            get('user-badge').textContent = role === 'teacher' ? 'Giáo viên' : 'Sinh viên';
+            get('user-badge').textContent = role === 'teacher' ? t('teacher_badge') : t('student_badge');
             if (role === 'teacher') { show('teacher-menu'); hide('student-menu'); window.navigate('teacher-create-lesson'); }
             else { show('student-menu'); hide('teacher-menu'); window.navigate('student-lessons'); }
         }
@@ -885,8 +1195,8 @@
             toggleLoading(true);
             try {
                 await signInWithEmailAndPassword(auth, get('email').value, get('password').value);
-                showToast("Đăng nhập thành công!");
-            } catch (err) { showToast("Lỗi: " + err.message); toggleLoading(false); }
+                showToast(t('toast_login_success'));
+            } catch (err) { showToast(t('toast_login_fail') + err.message); toggleLoading(false); }
         });
 
         get('btn-signup').addEventListener('click', async () => {
@@ -894,7 +1204,7 @@
             try {
                 const uc = await createUserWithEmailAndPassword(auth, get('email').value, get('password').value);
                 await setDoc(doc(db, getUserProfilePath(uc.user.uid), "info"), { email: get('email').value, role: selectedRoleAuth });
-                showToast("Đăng ký thành công!");
+                showToast(t('toast_signup_success'));
             } catch (err) { showToast("Lỗi: " + err.message); toggleLoading(false); }
         });
 
@@ -913,7 +1223,7 @@
                     createdBy: currentUser.uid,
                     createdAt: new Date()
                 });
-                showToast("Đã giao bài tập mới!");
+                showToast(t('toast_assigned'));
                 get('create-writing-form').reset();
                 fetchTeacherAssignments(); // Refresh list
             } catch (err) { showToast("Lỗi: " + err.message); }
@@ -928,14 +1238,14 @@
             try {
                 const qPending = query(collection(db, PUBLIC_DATA_PATH, "writing_submissions"), where("status", "==", "pending"));
                 const snapPending = await getDocs(qPending);
-                if(snapPending.empty) pendingContainer.innerHTML = '<p class="text-light">Không có bài chờ chấm gấp.</p>';
+                if(snapPending.empty) pendingContainer.innerHTML = `<p class="text-light">${t('waiting_grade_title')}: 0</p>`;
                 snapPending.forEach(doc => {
                     const d = doc.data();
                     pendingContainer.innerHTML += `
                     <div class="writing-item" style="border-left:4px solid var(--warning)">
-                        <div class="writing-header"><div class="writing-title">${d.assignmentTitle || 'Bài tập'}</div><span class="badge badge-pending">Pending</span></div>
+                        <div class="writing-header"><div class="writing-title">${d.assignmentTitle || 'Assignment'}</div><span class="badge badge-pending">Pending</span></div>
                         <div class="writing-meta">${d.studentEmail} - ${d.createdAt ? new Date(d.createdAt.seconds*1000).toLocaleString() : ''}</div>
-                        <button class="btn btn-primary btn-sm" onclick="openGrading('${doc.id}')">Chấm bài</button>
+                        <button class="btn btn-primary btn-sm" onclick="openGrading('${doc.id}')">${t('grading_title')}</button>
                     </div>`;
                 });
             } catch(e){ console.error(e); }
@@ -950,7 +1260,7 @@
                 const q = query(collection(db, PUBLIC_DATA_PATH, "writing_assignments"), orderBy("createdAt", "desc"));
                 const snap = await getDocs(q);
                 if(snap.empty) {
-                    container.innerHTML = '<p class="text-light">Chưa có đề bài nào.</p>';
+                    container.innerHTML = `<p class="text-light">${t('text_no_assign')}</p>`;
                 } else {
                     snap.forEach(doc => {
                         const d = doc.data();
@@ -960,13 +1270,13 @@
                             <div class="assign-info">
                                 <h4>${d.title}</h4>
                                 <p>${d.description.substring(0, 60)}${d.description.length>60?'...':''}</p>
-                                <p style="font-size:0.8rem; margin-top:5px;">Ngày tạo: ${d.createdAt ? new Date(d.createdAt.seconds*1000).toLocaleDateString() : 'N/A'}</p>
+                                <p style="font-size:0.8rem; margin-top:5px;">${t('text_created')} ${d.createdAt ? new Date(d.createdAt.seconds*1000).toLocaleDateString() : 'N/A'}</p>
                             </div>
                             <div class="assign-actions">
-                                <button class="btn btn-outline btn-sm" onclick="openAssignmentDetail('${doc.id}')" style="width:100%">Xem chi tiết &rarr;</button>
+                                <button class="btn btn-outline btn-sm" onclick="openAssignmentDetail('${doc.id}')" style="width:100%">${t('btn_view_detail')}</button>
                                 <div class="assign-btns">
-                                    <button class="btn btn-warning btn-sm" style="flex:1" onclick="editAssignment('${doc.id}')" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="btn btn-danger btn-sm" style="flex:1" onclick="deleteAssignment('${doc.id}')" title="Xóa đề"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-warning btn-sm" style="flex:1" onclick="editAssignment('${doc.id}')" title="${t('btn_edit')}"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn btn-danger btn-sm" style="flex:1" onclick="deleteAssignment('${doc.id}')" title="${t('btn_delete')}"><i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
                         `;
@@ -982,7 +1292,7 @@
             try {
                 // Get Assignment Details
                 const aDoc = await getDoc(doc(db, PUBLIC_DATA_PATH, "writing_assignments", assignmentId));
-                if(!aDoc.exists()) return showToast("Không tìm thấy đề bài");
+                if(!aDoc.exists()) return showToast("Error: Not found");
                 const aData = aDoc.data();
 
                 hide('view-teacher-writing-manage');
@@ -999,17 +1309,17 @@
                 const snapSubs = await getDocs(qSubs);
 
                 if(snapSubs.empty) {
-                    pendingContainer.innerHTML = '<p class="text-light">Chưa có bài nộp nào.</p>';
+                    pendingContainer.innerHTML = '<p class="text-light">...</p>';
                 } else {
                     snapSubs.forEach(doc => {
                         const d = doc.data();
                         const itemHtml = `
                             <div class="writing-item" style="border-left: 4px solid ${d.status === 'graded' ? 'var(--success)' : 'var(--warning)'}">
                                 <div class="writing-meta" style="font-weight:bold;">${d.studentEmail}</div>
-                                <div class="writing-meta">Nộp: ${d.createdAt ? new Date(d.createdAt.seconds*1000).toLocaleString() : 'N/A'}</div>
+                                <div class="writing-meta">${new Date(d.createdAt.seconds*1000).toLocaleString()}</div>
                                 ${d.status === 'graded' ? `<div class="score-display">${d.score}/100</div>` : ''}
                                 <button class="btn btn-sm ${d.status === 'graded' ? 'btn-outline' : 'btn-primary'}" style="margin-top:5px;" onclick="openGrading('${doc.id}')">
-                                    ${d.status === 'graded' ? 'Sửa điểm' : 'Chấm bài'}
+                                    ${d.status === 'graded' ? t('btn_edit') : t('grading_title')}
                                 </button>
                             </div>
                         `;
@@ -1018,11 +1328,8 @@
                         else gradedContainer.innerHTML += itemHtml;
                     });
                 }
-                
-                if(pendingContainer.innerHTML === '') pendingContainer.innerHTML = '<p class="text-light">Không có bài chờ chấm.</p>';
-                if(gradedContainer.innerHTML === '') gradedContainer.innerHTML = '<p class="text-light">Chưa có bài đã chấm.</p>';
 
-            } catch(e) { console.error(e); showToast("Lỗi tải chi tiết"); }
+            } catch(e) { console.error(e); showToast("Error loading details"); }
             toggleLoading(false);
         }
 
@@ -1060,7 +1367,7 @@
 
                     get('grade-submission-id').value = submissionId;
                 }
-            } catch(e) { showToast("Lỗi mở bài làm"); }
+            } catch(e) { showToast("Error opening submission"); }
             toggleLoading(false);
         }
 
@@ -1068,7 +1375,7 @@
             e.preventDefault();
             toggleLoading(true);
             const subId = get('grade-submission-id').value;
-            if (!subId) { showToast("Lỗi: Không tìm thấy ID bài làm"); toggleLoading(false); return; }
+            if (!subId) { showToast("Error ID"); toggleLoading(false); return; }
             
             const score = parseInt(get('grade-score').value);
             const feedback = get('grade-feedback').value;
@@ -1079,10 +1386,10 @@
                     status: 'graded',
                     gradedAt: new Date()
                 });
-                showToast("Đã chấm điểm xong!");
+                showToast(t('toast_graded'));
                 // Go back to Manage view main screen
                 navigate('teacher-writing-manage');
-            } catch(e) { showToast("Lỗi lưu điểm: " + e.message); }
+            } catch(e) { showToast("Error: " + e.message); }
             toggleLoading(false);
         });
 
@@ -1092,8 +1399,8 @@
             editingLessonId = null;
             get('create-lesson-form').reset();
             get('lesson-content-editor').innerHTML = '';
-            get('form-title').textContent = "Soạn bài giảng mới";
-            get('form-submit-btn').textContent = "Đăng bài";
+            get('form-title').textContent = t('create_lesson_title');
+            get('form-submit-btn').textContent = t('post_btn');
             hide('btn-cancel-edit');
             get('vocab-input-container').innerHTML = '';
             addVocabRow();
@@ -1124,33 +1431,32 @@
                     // LOAD MULTI QUIZ
                     const qContainer = get('lesson-quiz-container');
                     qContainer.innerHTML = '';
-                    // Backward compatibility: check 'miniQuizList' array OR single 'miniQuiz' object
                     if (Array.isArray(data.miniQuizList) && data.miniQuizList.length > 0) {
                         data.miniQuizList.forEach(q => addLessonQuizRow(q));
                     } else if (data.miniQuiz && data.miniQuiz.question) {
                         addLessonQuizRow(data.miniQuiz);
                     } else {
-                        addLessonQuizRow(); // Add empty
+                        addLessonQuizRow(); 
                     }
 
-                    get('form-title').textContent = "Chỉnh sửa bài giảng";
-                    get('form-submit-btn').textContent = "Cập nhật";
+                    get('form-title').textContent = t('edit_lesson_title');
+                    get('form-submit-btn').textContent = t('update_btn');
                     show('btn-cancel-edit');
                     isEditingMode = true;
                     navigate('teacher-create-lesson');
                 }
-            } catch(e) { showToast("Lỗi tải dữ liệu: " + e.message); }
+            } catch(e) { showToast("Error: " + e.message); }
             toggleLoading(false);
         }
         
         window.deleteLesson = async (lessonId) => {
-            if(!confirm("Bạn có chắc chắn muốn xóa bài giảng này?")) return;
+            if(!confirm(t('confirm_delete_lesson'))) return;
             toggleLoading(true);
             try {
                 await deleteDoc(doc(db, PUBLIC_DATA_PATH, "lessons", lessonId));
-                showToast("Đã xóa bài giảng.");
+                showToast(t('toast_deleted'));
                 fetchLessons();
-            } catch(e) { showToast("Lỗi xóa: " + e.message); }
+            } catch(e) { showToast("Error: " + e.message); }
             toggleLoading(false);
         }
 
@@ -1211,15 +1517,14 @@
             try {
                 if (editingLessonId) {
                     await updateDoc(doc(db, PUBLIC_DATA_PATH, "lessons", editingLessonId), lessonData);
-                    showToast("Đã cập nhật bài giảng!");
+                    showToast(t('toast_updated'));
                 } else {
                     await addDoc(collection(db, PUBLIC_DATA_PATH, "lessons"), lessonData);
-                    showToast("Đã đăng bài học mới!");
+                    showToast(t('toast_posted'));
                 }
 
                 // AUTO IMPORT TO GLOBAL QUIZ BANK
                 if (quizDataList.length > 0) {
-                    console.log("Auto-importing questions to bank...");
                     for (const q of quizDataList) {
                         await addDoc(collection(db, PUBLIC_DATA_PATH, "quizzes"), {
                             ...q,
@@ -1227,25 +1532,24 @@
                             source: 'lesson-import'
                         });
                     }
-                    showToast("Đã tự động thêm câu hỏi vào Ngân hàng!");
+                    showToast(t('toast_auto_import'));
                 }
 
                 isEditingMode = false;
                 resetLessonForm();
-            } catch (err) { showToast("Lỗi: " + err.message); }
+            } catch (err) { showToast("Error: " + err.message); }
             toggleLoading(false);
         });
 
         // --- LESSON VIEW ---
 
         async function fetchLessons() {
-            /* ... Previous fetchLessons code ... */
             toggleLoading(true);
             const listContainer = get('lesson-list'); listContainer.innerHTML = '';
             try {
                 const q = query(collection(db, PUBLIC_DATA_PATH, "lessons"), orderBy("createdAt", "desc"));
                 const querySnapshot = await getDocs(q);
-                if (querySnapshot.empty) listContainer.innerHTML = '<p>Chưa có bài học nào.</p>';
+                if (querySnapshot.empty) listContainer.innerHTML = `<p>${t('text_no_lesson')}</p>`;
                 querySnapshot.forEach((doc) => {
                     const d = doc.data();
                     const imgStyle = d.image ? `background-image: url('${d.image}');` : '';
@@ -1253,8 +1557,8 @@
                     const imgContent = d.image ? '' : '<i class="fa-solid fa-atom"></i>';
                     let teacherControls = currentRole === 'teacher' ? `
                         <div class="teacher-controls">
-                            <button class="btn btn-warning btn-sm" onclick="editLesson('${doc.id}')"><i class="fa-solid fa-pen"></i> Sửa</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteLesson('${doc.id}')"><i class="fa-solid fa-trash"></i> Xóa</button>
+                            <button class="btn btn-warning btn-sm" onclick="editLesson('${doc.id}')"><i class="fa-solid fa-pen"></i> ${t('btn_edit')}</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteLesson('${doc.id}')"><i class="fa-solid fa-trash"></i> ${t('btn_delete')}</button>
                         </div>` : '';
                     const card = document.createElement('div');
                     card.className = 'lesson-card';
@@ -1262,7 +1566,7 @@
                         <div class="lesson-body">
                             <div class="lesson-title">${d.title}</div>
                             <div class="lesson-desc">${d.desc}</div>
-                            <button class="btn btn-outline" style="width:100%" onclick="openLesson('${doc.id}')">Học ngay</button>
+                            <button class="btn btn-outline" style="width:100%" onclick="openLesson('${doc.id}')">${t('learn_now_btn')}</button>
                             ${teacherControls}
                         </div>`;
                     listContainer.appendChild(card);
@@ -1297,7 +1601,7 @@
                         vocabHtml = `<table class="vocab-table"><thead><tr><th>Word</th><th>Pronunciation</th><th>Meaning</th></tr></thead><tbody>
                                     ${data.vocabList.map(v => `<tr><td><b>${v.word}</b></td><td>${v.ipa || ''}</td><td>${v.meaning || ''}</td></tr>`).join('')}
                                 </tbody></table>`;
-                    } else { vocabHtml = '<p>Không có từ vựng.</p>'; }
+                    } else { vocabHtml = '<p>...</p>'; }
                     get('detail-vocab-container').innerHTML = vocabHtml;
                     
                     const embedUrl = getYouTubeEmbedUrl(data.video);
@@ -1307,7 +1611,6 @@
                     // RENDER MULTI MINI QUIZ
                     const quizListContainer = get('mini-quiz-list-display');
                     quizListContainer.innerHTML = '';
-                    const qBox = get('detail-mini-quiz');
                     
                     let questions = [];
                     if (Array.isArray(data.miniQuizList) && data.miniQuizList.length > 0) {
@@ -1322,7 +1625,7 @@
                             const div = document.createElement('div');
                             div.className = 'mini-quiz-item';
                             div.innerHTML = `
-                                <p style="font-weight: bold; margin-bottom: 10px; color: var(--text-dark);">Câu ${index+1}: ${q.question}</p>
+                                <p style="font-weight: bold; margin-bottom: 10px; color: var(--text-dark);">${t('question_label')} ${index+1}: ${q.question}</p>
                                 <div class="options-grid" id="mq-opts-${index}"></div>
                                 <p id="mq-feedback-${index}" style="margin-top: 10px; font-weight: bold; height: 20px;"></p>
                             `;
@@ -1343,7 +1646,7 @@
                         hide('detail-mini-quiz');
                     }
                 }
-            } catch (err) { showToast("Lỗi tải bài học"); console.error(err); }
+            } catch (err) { showToast("Error loading"); console.error(err); }
             toggleLoading(false);
         }
 
@@ -1358,11 +1661,11 @@
             });
 
             if(selected === correct) {
-                feedback.textContent = "Chính xác!";
+                feedback.textContent = t('text_correct');
                 feedback.style.color = "var(--success)";
             } else {
                 btn.classList.add('wrong');
-                feedback.textContent = "Sai rồi!";
+                feedback.textContent = t('text_wrong');
                 feedback.style.color = "var(--error)";
             }
         }
@@ -1380,15 +1683,15 @@
                 } else {
                     await setDoc(progressRef, { completed: true, timestamp: new Date() });
                     updateCompleteBtnUI(true);
-                    showToast("Đã hoàn thành bài học! +1 Tick");
+                    showToast(t('mark_done_success'));
                 }
-            } catch(e) { showToast("Lỗi lưu tiến độ"); }
+            } catch(e) { showToast("Error"); }
             toggleLoading(false);
         }
         function updateCompleteBtnUI(isComplete) {
             const btn = get('btn-mark-done');
-            if (isComplete) { btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> Đã hoàn thành'; btn.className = 'btn btn-success'; } 
-            else { btn.innerHTML = '<i class="fa-regular fa-circle-check"></i> Đánh dấu đã học'; btn.className = 'btn btn-outline'; }
+            if (isComplete) { btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> ${t('mark_done_success')}`; btn.className = 'btn btn-success'; } 
+            else { btn.innerHTML = `<i class="fa-regular fa-circle-check"></i> ${t('mark_done')}`; btn.className = 'btn btn-outline'; }
         }
 
         // --- QUIZ BANK & GAME ---
@@ -1398,7 +1701,7 @@
             try {
                 const q = query(collection(db, PUBLIC_DATA_PATH, "quizzes"), orderBy("createdAt", "desc"));
                 const snap = await getDocs(q);
-                if (snap.empty) container.innerHTML = '<p>Ngân hàng câu hỏi trống.</p>';
+                if (snap.empty) container.innerHTML = `<p>${t('text_no_quiz')}</p>`;
                 else snap.forEach(doc => {
                     const d = doc.data();
                     const sourceTag = d.source === 'lesson-import' ? '<span class="badge" style="background:#6366f1; margin-left:5px;">Lesson Import</span>' : '';
@@ -1409,7 +1712,7 @@
                         <div class="quiz-bank-option">B: ${d.options.B}</div>
                         <div class="quiz-bank-option">C: ${d.options.C}</div>
                         <div class="quiz-bank-option">D: ${d.options.D}</div>
-                        <div style="margin-top:5px; font-size:0.9rem;">Đáp án đúng: <span class="quiz-bank-correct">${d.correct}</span></div>
+                        <div style="margin-top:5px; font-size:0.9rem;">${t('correct_opt')}: <span class="quiz-bank-correct">${d.correct}</span></div>
                     </div>
                     <div class="quiz-bank-controls">
                         <button class="btn btn-warning btn-sm" onclick="editQuizQuestion('${doc.id}')"><i class="fa-solid fa-pen"></i></button>
@@ -1435,24 +1738,24 @@
                     get('opt-c').value = d.options.C;
                     get('opt-d').value = d.options.D;
                     get('correct-opt').value = d.correct;
-                    get('quiz-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa câu hỏi';
-                    get('btn-submit-quiz').textContent = "Cập nhật";
+                    get('quiz-form-title').innerHTML = `<i class="fa-solid fa-pen-to-square"></i> ${t('edit_quiz_title')}`;
+                    get('btn-submit-quiz').textContent = t('update_btn');
                     show('btn-cancel-quiz');
                     window.scrollTo(0, 0);
                 }
-            } catch(e) { showToast("Lỗi: " + e.message); }
+            } catch(e) { showToast("Error: " + e.message); }
             toggleLoading(false);
         }
         window.deleteQuizQuestion = async (id) => {
-            if (!confirm("Bạn chắc chắn muốn xóa câu hỏi này?")) return;
+            if (!confirm(t('confirm_delete_quiz'))) return;
             toggleLoading(true);
-            try { await deleteDoc(doc(db, PUBLIC_DATA_PATH, "quizzes", id)); showToast("Đã xóa câu hỏi"); fetchQuizBank(); } catch(e) { showToast("Lỗi xóa: " + e.message); }
+            try { await deleteDoc(doc(db, PUBLIC_DATA_PATH, "quizzes", id)); showToast("Deleted"); fetchQuizBank(); } catch(e) { showToast("Error: " + e.message); }
             toggleLoading(false);
         }
         window.resetQuizForm = () => {
             editingQuizId = null; get('create-quiz-form').reset();
-            get('quiz-form-title').innerHTML = '<i class="fa-solid fa-plus-circle"></i> Thêm câu hỏi mới';
-            get('btn-submit-quiz').textContent = "Lưu câu hỏi"; hide('btn-cancel-quiz');
+            get('quiz-form-title').innerHTML = `<i class="fa-solid fa-plus-circle"></i> ${t('add_quiz_title')}`;
+            get('btn-submit-quiz').textContent = t('save_question_btn'); hide('btn-cancel-quiz');
         }
         get('create-quiz-form').addEventListener('submit', async (e) => {
             e.preventDefault(); if (currentRole !== 'teacher') return; toggleLoading(true);
@@ -1463,10 +1766,10 @@
             };
             if (!editingQuizId) quizData.createdAt = new Date();
             try {
-                if (editingQuizId) { await updateDoc(doc(db, PUBLIC_DATA_PATH, "quizzes", editingQuizId), quizData); showToast("Đã cập nhật câu hỏi!"); } 
-                else { await addDoc(collection(db, PUBLIC_DATA_PATH, "quizzes"), quizData); showToast("Đã thêm câu hỏi mới!"); }
+                if (editingQuizId) { await updateDoc(doc(db, PUBLIC_DATA_PATH, "quizzes", editingQuizId), quizData); showToast("Updated!"); } 
+                else { await addDoc(collection(db, PUBLIC_DATA_PATH, "quizzes"), quizData); showToast("Added!"); }
                 resetQuizForm(); fetchQuizBank();
-            } catch (err) { showToast("Lỗi: " + err.message); }
+            } catch (err) { showToast("Error: " + err.message); }
             toggleLoading(false);
         });
 
@@ -1477,12 +1780,12 @@
             try {
                 const qSnap = await getDocs(collection(db, PUBLIC_DATA_PATH, "quizzes"));
                 let allQ = []; qSnap.forEach(doc => allQ.push({id: doc.id, ...doc.data()}));
-                if (allQ.length === 0) { showToast("Chưa có câu hỏi!"); toggleLoading(false); return; }
+                if (allQ.length === 0) { showToast(t('text_no_quiz')); toggleLoading(false); return; }
                 quizQuestions = allQ.sort(()=>0.5-Math.random()).slice(0,10);
                 currentQIndex=0; score=0;
                 hide('quiz-start-screen'); show('quiz-play-screen');
                 renderQuestion();
-            } catch (err) { showToast("Lỗi tải câu hỏi"); }
+            } catch (err) { showToast("Error"); }
             toggleLoading(false);
         }
         function renderQuestion() {
@@ -1501,15 +1804,15 @@
         }
         function checkAnswer(sel, corr, btn) {
             document.querySelectorAll('.option-btn').forEach(b=>{ b.classList.add('disabled'); b.onclick=null; if(b.innerHTML.includes(`<b>${corr}.</b>`)) b.classList.add('correct'); });
-            if(sel===corr) { score+=10; get('current-score').textContent=score; get('feedback-msg').textContent="Chính xác! +10 điểm"; get('feedback-msg').style.color="var(--success)"; }
-            else { btn.classList.add('wrong'); get('feedback-msg').textContent="Sai rồi!"; get('feedback-msg').style.color="var(--error)"; }
+            if(sel===corr) { score+=10; get('current-score').textContent=score; get('feedback-msg').textContent=`${t('text_correct')} +10`; get('feedback-msg').style.color="var(--success)"; }
+            else { btn.classList.add('wrong'); get('feedback-msg').textContent=t('text_wrong'); get('feedback-msg').style.color="var(--error)"; }
             show('btn-next-question');
         }
         window.nextQuestion = async () => {
             currentQIndex++;
             if(currentQIndex<quizQuestions.length) renderQuestion();
             else {
-                showToast(`Kết thúc! Điểm: ${score}`);
+                showToast(`${t('toast_game_over')} ${score}`);
                 if(currentUser) await addDoc(collection(db, PUBLIC_DATA_PATH, "scores"), { email: currentUser.email, score: score, timestamp: new Date() });
                 window.navigate('leaderboard');
             }
@@ -1567,7 +1870,7 @@
         
         // New Reset Leaderboard Function
         window.resetLeaderboard = async () => {
-            if(!confirm("CẢNH BÁO: Hành động này sẽ xóa toàn bộ lịch sử điểm số của Mini Game (Quiz). Điểm bài tập Viết sẽ được giữ nguyên. Bạn có chắc chắn?")) return;
+            if(!confirm(t('confirm_reset_game'))) return;
             toggleLoading(true);
             try {
                 const q = query(collection(db, PUBLIC_DATA_PATH, "scores"));
@@ -1577,7 +1880,7 @@
                     deletePromises.push(deleteDoc(doc.ref));
                 });
                 await Promise.all(deletePromises);
-                showToast("Đã reset bảng xếp hạng Game!");
+                showToast(t('toast_reset_game'));
                 fetchLeaderboard();
             } catch(e) { showToast("Lỗi xóa dữ liệu: " + e.message); }
             toggleLoading(false);
