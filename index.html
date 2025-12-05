@@ -1139,7 +1139,15 @@
         window.switchAuthRole = (role) => {
             selectedRoleAuth = role;
             document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+            if(event && event.target) event.target.classList.add('active');
+
+            // --- FEATURE UPDATE: HIDE SIGNUP BUTTON FOR TEACHERS ---
+            const signupBtn = document.getElementById('btn-signup');
+            if (role === 'teacher') {
+                signupBtn.classList.add('hidden');
+            } else {
+                signupBtn.classList.remove('hidden');
+            }
         }
 
         window.navigate = (viewId) => {
@@ -1200,6 +1208,12 @@
         });
 
         get('btn-signup').addEventListener('click', async () => {
+            // --- SECURITY CHECK: DISABLE TEACHER REGISTRATION ---
+            if (selectedRoleAuth === 'teacher') {
+                showToast("Tính năng đăng ký tài khoản Giáo viên đã bị tắt.");
+                return;
+            }
+
             toggleLoading(true);
             try {
                 const uc = await createUserWithEmailAndPassword(auth, get('email').value, get('password').value);
