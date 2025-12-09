@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electro Mind - Electrical Engineering Learning - 2.0.0 </title>
+    <title>Electro Mind - Electrical Engineering Learning - 2.0.1 (Fixed) </title>
     
     <!-- Font chữ Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -745,6 +745,7 @@
                 writing_list_title: "Bài tập Viết (Writing)",
                 writing_manage_title: "Quản lý Writing",
                 create_assignment_title: "Tạo đề bài mới",
+                edit_assignment_title: "Chỉnh sửa đề bài", // Added
                 assignment_title_label: "Tiêu đề bài tập",
                 assignment_title_ph: "VD: Essay Unit 1",
                 prompt_label: "Yêu cầu đề bài (Prompt)",
@@ -864,6 +865,7 @@
                 writing_list_title: "Writing Assignments",
                 writing_manage_title: "Manage Writing",
                 create_assignment_title: "Create New Assignment",
+                edit_assignment_title: "Edit Assignment", // Added
                 assignment_title_label: "Assignment Title",
                 assignment_title_ph: "Ex: Essay Unit 1",
                 prompt_label: "Prompt Requirement",
@@ -1179,7 +1181,8 @@
                 show('view-teacher-writing-manage'); 
                 fetchTeacherWritingDashboard(); 
                 fetchTeacherAssignments(); 
-                cancelEditAssignment(); 
+                // Ensure reset logic runs
+                if (typeof cancelEditAssignment === 'function') cancelEditAssignment(); 
             }
             else if (viewId === 'view-lesson-detail') { show('view-lesson-detail'); }
             
@@ -1234,22 +1237,69 @@
 
         window.handleLogout = () => signOut(auth).then(() => location.reload());
 
-        // --- WRITING MODULE ---
+        // --- WRITING MODULE (FIXED) ---
+
+        // FIX: Added editAssignment function
+        window.editAssignment = async (id) => {
+            toggleLoading(true);
+            try {
+                const docSnap = await getDoc(doc(db, PUBLIC_DATA_PATH, "writing_assignments", id));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    editingAssignmentId = id;
+                    
+                    // Populate form
+                    get('writing-title').value = data.title;
+                    get('writing-desc').value = data.description;
+                    
+                    // Update UI for Edit Mode
+                    get('writing-form-title').innerHTML = `<i class="fa-solid fa-pen-to-square"></i> ${t('edit_assignment_title')}`;
+                    get('btn-submit-writing').textContent = t('update_btn');
+                    show('btn-cancel-writing');
+                    
+                    // Scroll to form
+                    get('writing-form-title').scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch(e) { showToast("Error: " + e.message); }
+            toggleLoading(false);
+        }
+
+        // FIX: Added cancelEditAssignment function
+        window.cancelEditAssignment = () => {
+            editingAssignmentId = null;
+            get('create-writing-form').reset();
+            get('writing-form-title').innerHTML = `<i class="fa-solid fa-plus-circle"></i> ${t('create_assignment_title')}`;
+            get('btn-submit-writing').textContent = t('assign_btn');
+            hide('btn-cancel-writing');
+        }
         
         get('create-writing-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (currentRole !== 'teacher') return;
             toggleLoading(true);
+
+            // FIX: Added Update Logic
+            const dataPayload = {
+                title: get('writing-title').value,
+                description: get('writing-desc').value,
+                updatedAt: new Date()
+            };
+
             try {
-                await addDoc(collection(db, PUBLIC_DATA_PATH, "writing_assignments"), {
-                    title: get('writing-title').value,
-                    description: get('writing-desc').value,
-                    createdBy: currentUser.uid,
-                    createdAt: new Date()
-                });
-                showToast(t('toast_assigned'));
-                get('create-writing-form').reset();
-                fetchTeacherAssignments(); // Refresh list
+                if (editingAssignmentId) {
+                    // UPDATE EXISTING
+                    await updateDoc(doc(db, PUBLIC_DATA_PATH, "writing_assignments", editingAssignmentId), dataPayload);
+                    showToast(t('toast_updated'));
+                    cancelEditAssignment();
+                } else {
+                    // CREATE NEW
+                    dataPayload.createdBy = currentUser.uid;
+                    dataPayload.createdAt = new Date();
+                    await addDoc(collection(db, PUBLIC_DATA_PATH, "writing_assignments"), dataPayload);
+                    showToast(t('toast_assigned'));
+                    get('create-writing-form').reset();
+                }
+                fetchTeacherAssignments(); 
             } catch (err) { showToast("Lỗi: " + err.message); }
             toggleLoading(false);
         });
@@ -1276,7 +1326,7 @@
             toggleLoading(false);
         };
 
-        // 2. NEW: Fetch Assignments List
+        // 2. Fetch Assignments List
         window.fetchTeacherAssignments = async () => {
             const container = get('teacher-assignments-list');
             container.innerHTML = '';
@@ -1310,7 +1360,7 @@
             } catch(e) { console.error(e); }
         }
 
-        // --- ERROR FIX 2: TEACHER DELETE ASSIGNMENT ---
+        // TEACHER DELETE ASSIGNMENT
         window.deleteAssignment = async (id) => {
             if(!confirm(t('confirm_delete_assignment'))) return;
             toggleLoading(true);
@@ -1324,7 +1374,7 @@
             toggleLoading(false);
         };
 
-        // 3. NEW: Open Assignment Detail (Submissions)
+        // 3. Open Assignment Detail (Submissions)
         window.openAssignmentDetail = async (assignmentId) => {
             toggleLoading(true);
             try {
@@ -1371,7 +1421,7 @@
             toggleLoading(false);
         }
 
-        // --- ERROR FIX 1: STUDENT FETCH WRITING ---
+        // STUDENT FETCH WRITING
         window.fetchStudentWriting = async () => {
             toggleLoading(true);
             const container = get('student-writing-list');
@@ -1460,7 +1510,7 @@
             toggleLoading(false);
         };
 
-        // Helper function to submit writing (needed for fix 1)
+        // Helper function to submit writing
         window.submitWritingWork = async (assignmentId, title) => {
             const content = document.getElementById(`ans-${assignmentId}`).value;
             if(!content.trim()) return showToast("Vui lòng nhập nội dung bài làm!");
@@ -1544,7 +1594,7 @@
             toggleLoading(false);
         });
 
-        // ---------------- LESSON LOGIC (CORE UPDATES) ----------------
+        // ---------------- LESSON LOGIC ----------------
 
         function resetLessonForm() {
             editingLessonId = null;
@@ -1875,7 +1925,7 @@
             toggleLoading(false);
         }
         
-        // ... (Edit/Delete/Create Quiz Bank functions - same as before) ...
+        // ... (Edit/Delete/Create Quiz Bank functions) ...
         window.editQuizQuestion = async (id) => {
             toggleLoading(true);
             try {
@@ -1924,7 +1974,7 @@
             toggleLoading(false);
         });
 
-        // ... (Game and Leaderboard Logic - Same as before) ...
+        // ... (Game and Leaderboard Logic) ...
         let quizQuestions=[], currentQIndex=0, score=0;
         window.startQuiz = async () => {
             toggleLoading(true);
@@ -1972,7 +2022,6 @@
             toggleLoading(true);
             const tbody = get('leaderboard-body'); tbody.innerHTML='';
             
-            // FIX: Show reset button if teacher
             if (currentRole === 'teacher') {
                 show('btn-reset-leaderboard');
             } else {
@@ -1990,7 +2039,7 @@
                 
                 const scoreMap = {};
                 
-                // Quiz scores (keep existing logic)
+                // Quiz scores
                 quizSnap.forEach(doc => { 
                     const d = doc.data(); 
                     const email = d.email; 
@@ -2001,7 +2050,6 @@
                 // Writing scores (Filter by valid assignment IDs)
                 writingSnap.forEach(doc => { 
                     const d = doc.data(); 
-                    // ONLY count if assignment still exists
                     if (validAssignmentIds.has(d.assignmentId)) {
                         const email = d.studentEmail; 
                         if(!scoreMap[email]) scoreMap[email] = 0; 
@@ -2019,7 +2067,6 @@
             toggleLoading(false);
         }
         
-        // New Reset Leaderboard Function
         window.resetLeaderboard = async () => {
             if(!confirm(t('confirm_reset_game'))) return;
             toggleLoading(true);
