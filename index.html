@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electro Mind - HUST Student Portal - 2.0.2 </title>
+    <title>Electro Mind - HUST Student Portal - 2.1.0 </title>
     
     <!-- Font chữ Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -242,6 +242,14 @@
         .vocab-table th { background: var(--bg-color); font-weight: 600; color: var(--text-dark); }
         .vocab-row-input { display: grid; grid-template-columns: 1fr 1fr 1fr 40px; gap: 10px; margin-bottom: 10px; align-items: center;}
         
+        /* STUDENT TABLE STYLES (NEW) */
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .student-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+        .student-table th, .student-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        .student-table th { background-color: var(--bg-color); color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; }
+        .student-table tr:hover { background-color: var(--menu-hover); }
+        .student-table td { color: var(--text-dark); font-size: 0.95rem; }
+
         /* Loading & Toast */
         #loading-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.8); display: flex; justify-content: center; align-items: center; z-index: 999; }
         [data-theme="dark"] #loading-overlay { background: rgba(17, 24, 39, 0.8); }
@@ -292,6 +300,7 @@
             .hero-character-img { display: none; } /* Hide 3D char on mobile */
             .hero-right { justify-content: center; width: 100%; }
             .hero-card { width: 100%; max-width: 300px; }
+            .student-table { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -447,6 +456,10 @@
                     </div>
                     <div class="menu-item" onclick="navigate('student-lessons')">
                         <i class="fa-solid fa-eye"></i> <span data-i18n="menu_manage_posts">Quản lý bài đăng</span>
+                    </div>
+                    <!-- NEW: STUDENT LIST ITEM -->
+                    <div class="menu-item" onclick="navigate('teacher-students')">
+                        <i class="fa-solid fa-users"></i> <span data-i18n="menu_students">Danh sách sinh viên</span>
                     </div>
                     <div class="menu-item" onclick="navigate('leaderboard')">
                         <i class="fa-solid fa-trophy"></i> <span data-i18n="menu_leaderboard">Bảng xếp hạng</span>
@@ -655,6 +668,34 @@
                     </div>
                 </div>
 
+                <!-- NEW: TEACHER STUDENT LIST VIEW -->
+                <div id="view-teacher-students" class="view-section hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 class="section-title" style="margin-bottom:0" data-i18n="student_list_title">Danh sách sinh viên HUST</h2>
+                        <button onclick="fetchStudentList()" class="btn btn-outline btn-sm"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                    </div>
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="student-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;">STT</th>
+                                        <th data-i18n="fullname_th">Họ và Tên</th>
+                                        <th>MSSV</th>
+                                        <th data-i18n="class_th">Lớp</th>
+                                        <th data-i18n="cohort_th">Khóa</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="student-list-body">
+                                    <!-- Rows injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-light); font-style: italic;">* Danh sách này chỉ hiển thị những sinh viên đã đăng ký sau khi tính năng này được cập nhật.</p>
+                    </div>
+                </div>
+
                 <!-- TEACHER: CREATE/EDIT LESSON (UPDATED: Multi Quiz) -->
                 <div id="view-teacher-create-lesson" class="view-section hidden">
                     <h2 class="section-title" id="form-title" data-i18n="create_lesson_title">Soạn bài giảng mới</h2>
@@ -792,6 +833,11 @@
                 menu_quiz_bank: "Ngân hàng câu hỏi",
                 menu_manage_writing: "Quản lý Writing",
                 menu_manage_posts: "Quản lý bài đăng",
+                menu_students: "Danh sách sinh viên", // New
+                student_list_title: "Danh sách sinh viên HUST", // New
+                fullname_th: "Họ và Tên", // New
+                class_th: "Lớp", // New
+                cohort_th: "Khóa", // New
                 hero_desc_1: "Chào mừng bạn đến với nền tảng hỗ trợ học tập dành riêng cho sinh viên Kỹ thuật Điện & Điện tử.",
                 hero_desc_2: "Trang web cung cấp tài liệu học tập dễ hiểu và các bài tập thực hành đa dạng giúp bạn củng cố kiến thức. Dù bạn cần ghi chú ngắn gọn, giải thích chi tiết hay câu hỏi ôn tập, chúng tôi luôn sẵn sàng hỗ trợ bạn.",
                 my_course: "Khóa học của tôi",
@@ -810,7 +856,7 @@
                 writing_list_title: "Bài tập Viết (Writing)",
                 writing_manage_title: "Quản lý Writing",
                 create_assignment_title: "Tạo đề bài mới",
-                edit_assignment_title: "Chỉnh sửa đề bài", // Added
+                edit_assignment_title: "Chỉnh sửa đề bài", 
                 assignment_title_label: "Tiêu đề bài tập",
                 assignment_title_ph: "VD: Essay Unit 1",
                 prompt_label: "Yêu cầu đề bài (Prompt)",
@@ -912,6 +958,11 @@
                 menu_quiz_bank: "Quiz Bank",
                 menu_manage_writing: "Manage Writing",
                 menu_manage_posts: "Manage Posts",
+                menu_students: "Student List", // New
+                student_list_title: "HUST Student List", // New
+                fullname_th: "Full Name", // New
+                class_th: "Class", // New
+                cohort_th: "Cohort", // New
                 hero_desc_1: "Welcome to the learning support platform designed specifically for Electrical & Electronics Engineering students.",
                 hero_desc_2: "This website provides clear, accessible learning materials and a wide range of practice exercises to help you strengthen your understanding of key concepts. Whether you need concise notes, guided explanations, or topic-based practice questions, we are here to support you.",
                 my_course: "My Courses",
@@ -930,7 +981,7 @@
                 writing_list_title: "Writing Assignments",
                 writing_manage_title: "Manage Writing",
                 create_assignment_title: "Create New Assignment",
-                edit_assignment_title: "Edit Assignment", // Added
+                edit_assignment_title: "Edit Assignment", 
                 assignment_title_label: "Assignment Title",
                 assignment_title_ph: "Ex: Essay Unit 1",
                 prompt_label: "Prompt Requirement",
@@ -1257,6 +1308,7 @@
             else if (viewId === 'leaderboard') { show('view-leaderboard'); fetchLeaderboard(); }
             else if (viewId === 'teacher-create-lesson') { show('view-teacher-create-lesson'); }
             else if (viewId === 'student-writing') { show('view-student-writing'); fetchStudentWriting(); }
+            else if (viewId === 'teacher-students') { show('view-teacher-students'); fetchStudentList(); } // New Route
             else if (viewId === 'teacher-writing-manage') { 
                 show('view-teacher-writing-manage'); 
                 fetchTeacherWritingDashboard(); 
@@ -1301,7 +1353,7 @@
             } catch (err) { showToast(t('toast_login_fail') + err.message); toggleLoading(false); }
         });
 
-        // HUST SIGNUP HANDLER (UPDATED)
+        // HUST SIGNUP HANDLER (UPDATED TO SAVE TO PUBLIC DATA)
         get('hust-signup-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -1323,7 +1375,7 @@
                 // 1. Create Auth User
                 const uc = await createUserWithEmailAndPassword(auth, email, password);
                 
-                // 2. Save Extended Profile Data
+                // 2. Data Payload
                 const userProfileData = {
                     email: email,
                     role: 'student', // Forced student role
@@ -1335,7 +1387,12 @@
                     createdAt: new Date()
                 };
 
+                // 3. Save Private Extended Profile Data
                 await setDoc(doc(db, getUserProfilePath(uc.user.uid), "info"), userProfileData);
+
+                // 4. (NEW) Save Public Data for Teacher List (So teachers can query it)
+                // We save it in `artifacts/{appId}/public/data/students/{userId}`
+                await setDoc(doc(db, PUBLIC_DATA_PATH, "students", uc.user.uid), userProfileData);
                 
                 showToast(t('toast_signup_success'));
                 // onAuthStateChanged will handle redirect
@@ -1346,6 +1403,43 @@
         });
 
         window.handleLogout = () => signOut(auth).then(() => location.reload());
+
+        // --- NEW: FETCH STUDENT LIST ---
+        window.fetchStudentList = async () => {
+            if (currentRole !== 'teacher') return;
+            toggleLoading(true);
+            const tbody = document.getElementById('student-list-body');
+            tbody.innerHTML = '';
+            
+            try {
+                // Query the PUBLIC students collection we just made in Signup
+                const q = query(collection(db, PUBLIC_DATA_PATH, "students"), orderBy("studentId", "asc"));
+                const querySnapshot = await getDocs(q);
+                
+                if(querySnapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">Chưa có dữ liệu sinh viên.</td></tr>`;
+                } else {
+                    let stt = 1;
+                    querySnapshot.forEach((doc) => {
+                        const s = doc.data();
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td style="text-align:center;">${stt++}</td>
+                            <td style="font-weight:600; color: var(--primary-color);">${s.fullName}</td>
+                            <td>${s.studentId}</td>
+                            <td>${s.classId}</td>
+                            <td>${s.cohort}</td>
+                            <td>${s.email}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+            } catch(err) {
+                console.error(err);
+                showToast("Lỗi tải danh sách sinh viên.");
+            }
+            toggleLoading(false);
+        }
 
         // --- WRITING MODULE (FIXED) ---
 
