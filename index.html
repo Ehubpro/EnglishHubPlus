@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electro Mind - HUST Student Portal - 2.1.1 </title>
+    <title>Electro Mind - HUST Student Portal - 2.1.2 (Fixed)</title>
     
     <!-- Font chữ Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -57,6 +57,13 @@
         /* --- UTILITIES --- */
         .hidden { display: none !important; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* FIX: Class hiển thị responsive thay vì dùng style inline lỗi */
+        .desktop-only { display: none; }
+        @media (min-width: 768px) {
+            .desktop-only { display: block; }
+        }
+
         .btn {
             display: inline-block; padding: 10px 20px; border-radius: 8px; border: none;
             font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center;
@@ -330,11 +337,11 @@
                 <form id="auth-form">
                     <div class="input-group">
                         <label>Email</label>
-                        <input type="email" id="email" class="input-field" placeholder="mssv@sis.hust.edu.vn" required>
+                        <input type="email" id="email" class="input-field" placeholder="mssv@sis.hust.edu.vn" required />
                     </div>
                     <div class="input-group">
                         <label data-i18n="password_label">Mật khẩu</label>
-                        <input type="password" id="password" class="input-field" placeholder="******" required>
+                        <input type="password" id="password" class="input-field" placeholder="******" required />
                     </div>
                     
                     <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" data-i18n="login_btn">Đăng nhập</button>
@@ -352,28 +359,28 @@
                 <form id="hust-signup-form">
                     <div class="input-group">
                         <label>Email (HUST/SIS)</label>
-                        <input type="email" id="su-email" class="input-field" placeholder="hieu.nt201234@sis.hust.edu.vn" required>
+                        <input type="email" id="su-email" class="input-field" placeholder="hieu.nt201234@sis.hust.edu.vn" required />
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div class="input-group">
                             <label>Họ và tên</label>
-                            <input type="text" id="su-fullname" class="input-field" placeholder="Nguyễn Văn A" required>
+                            <input type="text" id="su-fullname" class="input-field" placeholder="Nguyễn Văn A" required />
                         </div>
                         <div class="input-group">
                             <label>Mã số sinh viên</label>
-                            <input type="text" id="su-mssv" class="input-field" placeholder="20201234" required>
+                            <input type="text" id="su-mssv" class="input-field" placeholder="20201234" required />
                         </div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div class="input-group">
                             <label>Lớp sinh hoạt</label>
-                            <input type="text" id="su-class" class="input-field" placeholder="CNTT-01" required>
+                            <input type="text" id="su-class" class="input-field" placeholder="CNTT-01" required />
                         </div>
                         <div class="input-group">
                             <label>Khóa</label>
-                            <input type="text" id="su-cohort" class="input-field" placeholder="K65" required>
+                            <input type="text" id="su-cohort" class="input-field" placeholder="K65" required />
                         </div>
                     </div>
 
@@ -391,7 +398,7 @@
 
                     <div class="input-group">
                         <label>Mật khẩu</label>
-                        <input type="password" id="su-password" class="input-field" placeholder="******" required>
+                        <input type="password" id="su-password" class="input-field" placeholder="******" required />
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Hoàn tất đăng ký</button>
@@ -420,7 +427,10 @@
                         <i id="theme-icon" class="fa-solid fa-moon"></i>
                     </button>
                     <span class="user-badge" id="user-badge">Student</span>
-                    <span id="user-email" style="font-weight: 600; display: none; md:block;">user@email.com</span>
+                    
+                    <!-- FIX: Sử dụng class CSS thay vì inline style lỗi -->
+                    <span id="user-email" class="desktop-only" style="font-weight: 600;">user@email.com</span>
+                    
                     <button onclick="handleLogout()" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.9rem;"><i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             </div>
@@ -489,13 +499,13 @@
                         </div>
                         <div class="hero-right">
                             <div class="hero-card">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3413/3413535.png" alt="Courses">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3413/3413535.png" alt="Courses" />
                                 <h3 data-i18n="my_course">Khóa học của tôi</h3>
                                 <p data-i18n="continue_learning">Tiếp tục học tập</p>
                                 <button class="hero-btn" onclick="scrollToLessons()" data-i18n="learn_now_btn">Học ngay >></button>
                             </div>
                             <div class="hero-card">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" alt="Quiz">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" alt="Quiz" />
                                 <h3 data-i18n="quiz_challenge">Thử thách Quiz</h3>
                                 <p data-i18n="test_knowledge">Kiểm tra kiến thức</p>
                                 <button class="hero-btn hero-btn-cyan" onclick="navigate('student-quiz')" data-i18n="practice_btn">Luyện tập >></button>
@@ -514,7 +524,7 @@
                     </div>
                     
                     <div class="card">
-                        <input type="hidden" id="current-lesson-id">
+                        <input type="hidden" id="current-lesson-id" />
                         <div id="detail-image" style="width:100%; height:300px; background-size:cover; background-position:center; border-radius:8px; margin-bottom:20px; display:none;"></div>
                         <h1 id="detail-title" style="color: var(--primary-color); margin-bottom: 10px;">Unit Title</h1>
                         <div style="border-bottom: 1px solid var(--border-color); margin-bottom: 20px;"></div>
@@ -548,7 +558,7 @@
                         <form id="create-writing-form" style="margin-top:15px;">
                             <div class="input-group">
                                 <label data-i18n="assignment_title_label">Tiêu đề bài tập</label>
-                                <input type="text" id="writing-title" class="input-field" placeholder="VD: Essay Unit 1" data-i18n-placeholder="assignment_title_ph" required>
+                                <input type="text" id="writing-title" class="input-field" placeholder="VD: Essay Unit 1" data-i18n-placeholder="assignment_title_ph" required />
                             </div>
                             <div class="input-group">
                                 <label data-i18n="prompt_label">Yêu cầu đề bài (Prompt)</label>
@@ -609,19 +619,20 @@
                         
                         <div id="grade-student-image-container" style="margin-bottom: 20px; display: none;">
                              <p><strong data-i18n="illust_image">Ảnh minh họa:</strong></p>
-                             <img id="grade-student-image" src="" style="max-width: 100%; border-radius: 8px; border: 1px solid #eee;">
+                             <!-- FIX: Đóng thẻ img -->
+                             <img id="grade-student-image" src="" alt="Student Submission Image" style="max-width: 100%; border-radius: 8px; border: 1px solid #eee;" />
                         </div>
 
                         <form id="grading-form">
                             <div class="input-group">
                                 <label data-i18n="score_label">Điểm số (0-100)</label>
-                                <input type="number" id="grade-score" class="input-field" min="0" max="100" required>
+                                <input type="number" id="grade-score" class="input-field" min="0" max="100" required />
                             </div>
                             <div class="input-group">
                                 <label data-i18n="feedback_label">Nhận xét (Feedback)</label>
                                 <textarea id="grade-feedback" class="input-field" rows="3" placeholder="Nhận xét chi tiết..." data-i18n-placeholder="feedback_ph" required></textarea>
                             </div>
-                            <input type="hidden" id="grade-submission-id">
+                            <input type="hidden" id="grade-submission-id" />
                             <button type="submit" class="btn btn-primary" data-i18n="submit_grade_btn">Hoàn tất chấm</button>
                         </form>
                     </div>
@@ -631,7 +642,7 @@
                 <div id="view-student-quiz" class="view-section hidden">
                     <h2 class="section-title" data-i18n="game_title">Mini Game: Thử thách kiến thức</h2>
                     <div id="quiz-start-screen" class="card text-center" style="text-align: center;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" width="100" style="margin-bottom: 20px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3407/3407037.png" width="100" style="margin-bottom: 20px;" alt="Start Quiz" />
                         <h3 data-i18n="ready_title">Sẵn sàng chưa?</h3>
                         <button onclick="startQuiz()" class="btn btn-primary" data-i18n="start_game_btn">Bắt đầu ngay</button>
                     </div>
@@ -703,15 +714,15 @@
                         <form id="create-lesson-form">
                             <div class="input-group">
                                 <label data-i18n="unit_name_label">Tiêu đề bài học (Unit Name)</label>
-                                <input type="text" id="lesson-title" class="input-field" placeholder="VD: Unit 1: Electrons" data-i18n-placeholder="unit_name_ph" required>
+                                <input type="text" id="lesson-title" class="input-field" placeholder="VD: Unit 1: Electrons" data-i18n-placeholder="unit_name_ph" required />
                             </div>
                             <div class="input-group">
                                 <label data-i18n="desc_label">Mô tả ngắn</label>
-                                <input type="text" id="lesson-desc" class="input-field" placeholder="Giới thiệu ngắn gọn..." data-i18n-placeholder="desc_ph" required>
+                                <input type="text" id="lesson-desc" class="input-field" placeholder="Giới thiệu ngắn gọn..." data-i18n-placeholder="desc_ph" required />
                             </div>
                             <div class="input-group">
                                 <label data-i18n="img_label">Hình ảnh minh họa (URL)</label>
-                                <input type="url" id="lesson-image" class="input-field" placeholder="https://example.com/image.jpg">
+                                <input type="url" id="lesson-image" class="input-field" placeholder="https://example.com/image.jpg" />
                             </div>
                             
                             <div class="input-group">
@@ -734,7 +745,7 @@
 
                             <div class="input-group">
                                 <label>Link Video (Youtube)</label>
-                                <input type="text" id="lesson-video" class="input-field" placeholder="https://www.youtube.com/watch?v=...">
+                                <input type="text" id="lesson-video" class="input-field" placeholder="https://www.youtube.com/watch?v=..." />
                                 <small style="color: var(--text-light);" data-i18n="video_hint">Hệ thống sẽ tự động chuyển đổi link video.</small>
                             </div>
 
@@ -766,13 +777,13 @@
                         <form id="create-quiz-form" style="margin-top: 15px;">
                             <div class="input-group">
                                 <label data-i18n="question_label">Câu hỏi</label>
-                                <input type="text" id="quiz-question" class="input-field" required>
+                                <input type="text" id="quiz-question" class="input-field" required />
                             </div>
                             <div class="options-grid" style="margin-bottom: 15px;">
-                                <div class="input-group"><label data-i18n="opt_a">Đáp án A</label><input type="text" id="opt-a" class="input-field" required></div>
-                                <div class="input-group"><label data-i18n="opt_b">Đáp án B</label><input type="text" id="opt-b" class="input-field" required></div>
-                                <div class="input-group"><label data-i18n="opt_c">Đáp án C</label><input type="text" id="opt-c" class="input-field" required></div>
-                                <div class="input-group"><label data-i18n="opt_d">Đáp án D</label><input type="text" id="opt-d" class="input-field" required></div>
+                                <div class="input-group"><label data-i18n="opt_a">Đáp án A</label><input type="text" id="opt-a" class="input-field" required /></div>
+                                <div class="input-group"><label data-i18n="opt_b">Đáp án B</label><input type="text" id="opt-b" class="input-field" required /></div>
+                                <div class="input-group"><label data-i18n="opt_c">Đáp án C</label><input type="text" id="opt-c" class="input-field" required /></div>
+                                <div class="input-group"><label data-i18n="opt_d">Đáp án D</label><input type="text" id="opt-d" class="input-field" required /></div>
                             </div>
                             <div class="input-group">
                                 <label data-i18n="correct_opt">Đáp án đúng</label>
@@ -1202,7 +1213,7 @@
                     if (blob) {
                         const reader = new FileReader();
                         reader.onload = (event) => {
-                            const img = `<img src="${event.target.result}" style="max-width:100%;">`;
+                            const img = `<img src="${event.target.result}" style="max-width:100%;" />`;
                             document.execCommand('insertHTML', false, img);
                         };
                         reader.readAsDataURL(blob);
@@ -1226,9 +1237,9 @@
             const div = document.createElement('div');
             div.className = 'vocab-row-input';
             div.innerHTML = `
-                <input type="text" class="input-field vocab-word" value="${word}" placeholder="Word" data-i18n-placeholder="vocab_title">
-                <input type="text" class="input-field vocab-ipa" value="${ipa}" placeholder="IPA">
-                <input type="text" class="input-field vocab-mean" value="${mean}" placeholder="Meaning" data-i18n-placeholder="vocab_title">
+                <input type="text" class="input-field vocab-word" value="${word}" placeholder="Word" data-i18n-placeholder="vocab_title" />
+                <input type="text" class="input-field vocab-ipa" value="${ipa}" placeholder="IPA" />
+                <input type="text" class="input-field vocab-mean" value="${mean}" placeholder="Meaning" data-i18n-placeholder="vocab_title" />
                 <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
             `;
             container.appendChild(div);
@@ -1243,12 +1254,12 @@
             div.className = 'lesson-quiz-row';
             div.innerHTML = `
                 <button type="button" class="remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-times"></i></button>
-                <input type="text" class="input-field lq-question" placeholder="Câu hỏi..." data-i18n-placeholder="question_label" value="${data.question || ''}" style="margin-bottom: 10px; font-weight: bold;">
+                <input type="text" class="input-field lq-question" placeholder="Câu hỏi..." data-i18n-placeholder="question_label" value="${data.question || ''}" style="margin-bottom: 10px; font-weight: bold;" />
                 <div class="options-grid" style="margin-bottom: 10px;">
-                    <input type="text" class="input-field lq-opt-a" placeholder="Đáp án A" data-i18n-placeholder="opt_a" value="${data.options?.A || ''}">
-                    <input type="text" class="input-field lq-opt-b" placeholder="Đáp án B" data-i18n-placeholder="opt_b" value="${data.options?.B || ''}">
-                    <input type="text" class="input-field lq-opt-c" placeholder="Đáp án C" data-i18n-placeholder="opt_c" value="${data.options?.C || ''}">
-                    <input type="text" class="input-field lq-opt-d" placeholder="Đáp án D" data-i18n-placeholder="opt_d" value="${data.options?.D || ''}">
+                    <input type="text" class="input-field lq-opt-a" placeholder="Đáp án A" data-i18n-placeholder="opt_a" value="${data.options?.A || ''}" />
+                    <input type="text" class="input-field lq-opt-b" placeholder="Đáp án B" data-i18n-placeholder="opt_b" value="${data.options?.B || ''}" />
+                    <input type="text" class="input-field lq-opt-c" placeholder="Đáp án C" data-i18n-placeholder="opt_c" value="${data.options?.C || ''}" />
+                    <input type="text" class="input-field lq-opt-d" placeholder="Đáp án D" data-i18n-placeholder="opt_d" value="${data.options?.D || ''}" />
                 </div>
                 <label data-i18n="correct_opt">Đáp án đúng:</label>
                 <select class="input-field lq-correct" style="width: 100px;">
