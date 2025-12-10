@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electro Mind - Electrical Engineering Learning - 2.0.1 (Fixed) </title>
+    <title>Electro Mind - HUST Student Portal - 2.0.2 </title>
     
     <!-- Font chữ Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -109,8 +109,8 @@
         }
         .auth-card {
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 40px;
-            border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            border-radius: 20px; width: 100%; max-width: 450px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            text-align: center; max-height: 90vh; overflow-y: auto;
         }
         [data-theme="dark"] .auth-card { background: rgba(31, 41, 55, 0.95); }
         
@@ -118,6 +118,10 @@
         .role-switch { display: flex; background: var(--border-color); border-radius: 8px; padding: 4px; margin-bottom: 20px; }
         .role-btn { flex: 1; padding: 8px; border-radius: 6px; border: none; background: transparent; font-weight: 600; cursor: pointer; color: var(--text-light); }
         .role-btn.active { background: var(--card-bg); color: var(--primary-color); box-shadow: var(--shadow-sm); }
+        
+        /* New Styles for HUST Signup Form */
+        .hust-header { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .hust-badge { background: #b91c1c; color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; vertical-align: middle; margin-left: 5px; }
 
         /* --- DASHBOARD LAYOUT --- */
         header { background: var(--header-bg); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100; }
@@ -307,24 +311,85 @@
             <h1 class="logo-text">Electro Mind</h1>
             <p style="margin-bottom: 20px; color: var(--text-light);">HUST Electrical Engineering</p>
             
-            <div class="role-switch">
-                <button class="role-btn active" onclick="switchAuthRole('student')" data-i18n="student_role">Sinh viên</button>
-                <button class="role-btn" onclick="switchAuthRole('teacher')" data-i18n="teacher_role">Giáo viên</button>
+            <!-- VIEW: LOGIN FORM -->
+            <div id="login-view">
+                <div class="role-switch">
+                    <button class="role-btn active" onclick="switchAuthRole('student')" data-i18n="student_role">Sinh viên</button>
+                    <button class="role-btn" onclick="switchAuthRole('teacher')" data-i18n="teacher_role">Giáo viên</button>
+                </div>
+
+                <form id="auth-form">
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="email" class="input-field" placeholder="mssv@sis.hust.edu.vn" required>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="password_label">Mật khẩu</label>
+                        <input type="password" id="password" class="input-field" placeholder="******" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" data-i18n="login_btn">Đăng nhập</button>
+                    <button type="button" id="btn-to-signup" class="btn btn-outline" style="width: 100%;" onclick="toggleAuthView('signup')" data-i18n="signup_btn">Đăng ký tài khoản mới</button>
+                </form>
             </div>
 
-            <form id="auth-form">
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="email" class="input-field" placeholder="mssv@sis.hust.edu.vn" required>
+            <!-- VIEW: SIGNUP FORM (HUST SPECIFIC) -->
+            <div id="signup-view" class="hidden" style="text-align: left;">
+                <div class="hust-header text-center">
+                    <h3 style="color: var(--primary-color);">Đăng ký Sinh viên <span class="hust-badge">HUST</span></h3>
+                    <p style="font-size: 0.85rem; color: var(--text-light); margin-top:5px;">Dành cho sinh viên ĐH Bách Khoa Hà Nội</p>
                 </div>
-                <div class="input-group">
-                    <label data-i18n="password_label">Mật khẩu</label>
-                    <input type="password" id="password" class="input-field" placeholder="******" required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" data-i18n="login_btn">Đăng nhập</button>
-                <button type="button" id="btn-signup" class="btn btn-outline" style="width: 100%;" data-i18n="signup_btn">Đăng ký tài khoản mới</button>
-            </form>
+
+                <form id="hust-signup-form">
+                    <div class="input-group">
+                        <label>Email (HUST/SIS)</label>
+                        <input type="email" id="su-email" class="input-field" placeholder="hieu.nt201234@sis.hust.edu.vn" required>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="input-group">
+                            <label>Họ và tên</label>
+                            <input type="text" id="su-fullname" class="input-field" placeholder="Nguyễn Văn A" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Mã số sinh viên</label>
+                            <input type="text" id="su-mssv" class="input-field" placeholder="20201234" required>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="input-group">
+                            <label>Lớp sinh hoạt</label>
+                            <input type="text" id="su-class" class="input-field" placeholder="CNTT-01" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Khóa</label>
+                            <input type="text" id="su-cohort" class="input-field" placeholder="K65" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Viện/Trường đào tạo</label>
+                        <select id="su-institute" class="input-field" required>
+                            <option value="" disabled selected>Chọn Viện/Trường...</option>
+                            <option value="SEEE">Điện - Điện tử</option>
+                            <option value="SOICT">Công nghệ thông tin & TT</option>
+                            <option value="SME">Cơ khí</option>
+                            <option value="SAM">Toán ứng dụng & Tin học</option>
+                            <option value="OTHER">Khác</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="su-password" class="input-field" placeholder="******" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Hoàn tất đăng ký</button>
+                    <button type="button" class="btn btn-outline" style="width: 100%;" onclick="toggleAuthView('login')">Quay lại Đăng nhập</button>
+                </form>
+            </div>
+
         </div>
     </section>
 
@@ -1147,18 +1212,33 @@
             updateLanguageUI();
         }
 
-        // --- NAVIGATION ---
+        // --- NAVIGATION & AUTH UI ---
+        
+        window.toggleAuthView = (view) => {
+            if (view === 'signup') {
+                if (selectedRoleAuth === 'teacher') {
+                    showToast("Hiện tại chỉ hỗ trợ tạo tài khoản Sinh viên online.");
+                    return;
+                }
+                hide('login-view');
+                show('signup-view');
+            } else {
+                hide('signup-view');
+                show('login-view');
+            }
+        }
+
         window.switchAuthRole = (role) => {
             selectedRoleAuth = role;
             document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
             if(event && event.target) event.target.classList.add('active');
 
-            // --- FEATURE UPDATE: HIDE SIGNUP BUTTON FOR TEACHERS ---
-            const signupBtn = document.getElementById('btn-signup');
+            // --- TEACHER LOGIN ONLY ---
+            const signupBtn = document.getElementById('btn-to-signup');
             if (role === 'teacher') {
-                signupBtn.classList.add('hidden');
+                signupBtn.style.display = 'none';
             } else {
-                signupBtn.classList.remove('hidden');
+                signupBtn.style.display = 'inline-block';
             }
         }
 
@@ -1211,6 +1291,7 @@
             else { show('student-menu'); hide('teacher-menu'); window.navigate('student-lessons'); }
         }
 
+        // LOGIN HANDLER
         get('auth-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             toggleLoading(true);
@@ -1220,19 +1301,48 @@
             } catch (err) { showToast(t('toast_login_fail') + err.message); toggleLoading(false); }
         });
 
-        get('btn-signup').addEventListener('click', async () => {
-            // --- SECURITY CHECK: DISABLE TEACHER REGISTRATION ---
-            if (selectedRoleAuth === 'teacher') {
-                showToast("Tính năng đăng ký tài khoản Giáo viên đã bị tắt.");
+        // HUST SIGNUP HANDLER (UPDATED)
+        get('hust-signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = get('su-email').value;
+            const password = get('su-password').value;
+            const fullname = get('su-fullname').value;
+            const mssv = get('su-mssv').value;
+            const className = get('su-class').value;
+            const cohort = get('su-cohort').value;
+            const institute = get('su-institute').value;
+
+            if(!institute) {
+                showToast("Vui lòng chọn Viện/Trường đào tạo");
                 return;
             }
 
             toggleLoading(true);
             try {
-                const uc = await createUserWithEmailAndPassword(auth, get('email').value, get('password').value);
-                await setDoc(doc(db, getUserProfilePath(uc.user.uid), "info"), { email: get('email').value, role: selectedRoleAuth });
+                // 1. Create Auth User
+                const uc = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // 2. Save Extended Profile Data
+                const userProfileData = {
+                    email: email,
+                    role: 'student', // Forced student role
+                    fullName: fullname,
+                    studentId: mssv,
+                    classId: className,
+                    cohort: cohort,
+                    institute: institute,
+                    createdAt: new Date()
+                };
+
+                await setDoc(doc(db, getUserProfilePath(uc.user.uid), "info"), userProfileData);
+                
                 showToast(t('toast_signup_success'));
-            } catch (err) { showToast("Lỗi: " + err.message); toggleLoading(false); }
+                // onAuthStateChanged will handle redirect
+            } catch (err) { 
+                showToast("Lỗi đăng ký: " + err.message); 
+                toggleLoading(false); 
+            }
         });
 
         window.handleLogout = () => signOut(auth).then(() => location.reload());
